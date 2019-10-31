@@ -1,0 +1,33 @@
+{
+  "display":"APP4",
+  "key":"root",
+  "whitelist":["APP4"],
+  "subfilters": [
+    {
+      "key":"td",
+      "display":"Groupe de TD Tronc Commun",
+      "variable":["A", "B", "C", "D"],
+      "blacklist":["APP4 TC Gr [A-Z]"],
+      "whitelist":["APP4 TC Gr {td}"]
+    },
+    {
+      "key":"spe",
+      "display":"Spécialité",
+      "variable":{
+        "Electronique, énergie, systèmes":"EES",
+        "Informatique":"INFO",
+        "Photonique systèmes optroniques":"PSO",
+        "Matériaux : mécanique et énergie":"MTX"
+      },
+      "blacklist":["APP4 (EES|INFO|PSO|MTX)"],
+      "whitelist":["APP4 {spe}"]
+    },
+    {
+      "key":"lv2",
+      "display":"LV2 / anglais renforcé",
+      "variable":["anglais-Groupe 1", "anglais-Groupe 2", "espagnol", "allemand"],
+      "blacklist":["APP4 LV2 "],
+      "whitelist":["APP4 LV2 {lv2}"]
+    }
+  ]
+}

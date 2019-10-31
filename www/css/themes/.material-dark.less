@@ -1,0 +1,35 @@
+//out:material-dark.css
+
+@color: rgba(255, 255, 255, .87);
+@color-medium: rgba(255, 255, 255, .60);
+@color-disabled: rgba(255, 255, 255, .38);
+@back: #121212;
+@primary: #03DAC5;
+
+@import ".settings.less";
+
+@nav-back: #292929;
+
+@datepicker-today-shadow: @color-disabled;
+
+@settings-button-save-back: #4caf50;
+@settings-button-cancel-back: #CF6679;
+@settings-widget-border:@color;
+
+@calendar-color: @color-disabled;
+@calendar-line-color: @color-disabled;
+@calendar-course-color: @color-medium;
+@calendar-course-back: #232323 !important;
+
+@calendar-course-disabled-back: @back !important;
+@calendar-course-disabled-border: @color-disabled;
+
+@import (less) ".common.less";
+
+@font-face {
+  font-family: roboto;
+  src: url(roboto.ttf);
+}
+body, html {
+  font-family: roboto, sans-serif;
+}

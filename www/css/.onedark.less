@@ -1,0 +1,84 @@
+//out:onedark.css
+
+
+#calendar {
+  background: #282d34;
+  color: #aab1be;
+
+  #heures .classe {
+    border: 1px solid #181a1d;
+    color: #9ca4b3;
+    background: #31363f !important;
+    &.disabled {
+      background: repeating-linear-gradient(45deg, #31363f, #31363f 1em, #1d1f21 1em, #1d1f21 2em) !important;
+      color: #666b73;
+    }
+  }
+}
+
+nav {
+  background: #262a30;
+  box-shadow: none;
+  border-bottom: 1px solid #1f2025;
+  button {
+    color: #9ca4b3;
+    background: #31363f;
+    &.settings {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    &.veille {
+      border-radius:0;
+    }
+    &.lendemain {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+    &:hover {
+      background: #31363f;
+    }
+  }
+  div {
+    color: #9ca4b3;
+    background: #31363f;
+  }
+}
+
+svg {
+  fill: #9ca4b3;
+}
+#settings {
+  background: #282d34;
+  color: #aab1be;
+  .wrapper .section .element select {
+    background: #9ca4b3;
+    color: black;
+  }
+
+  .wrapper .section .element input[type="checkbox"]:checked {
+    background: #55b2be;
+  }
+
+  button {
+    background: #e06c75;
+    &.save {
+      background: #55b2be;
+    }
+    &.reset {
+      background: #e06c75;
+      color: white;
+    }
+  }
+}
+
+#datePicker {
+  background: #282d34;
+  color: #aab1be;
+
+  .dates .dayName {
+    color: #565b65;
+  }
+  .dates .dayNumber {
+    color: #aab1be;
+  }
+}

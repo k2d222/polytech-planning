@@ -1,0 +1,166 @@
+svg {
+  fill: @fill-svg;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: @scrollbar-back;
+}
+
+.touched::-webkit-scrollbar-thumb {
+  background-color: @scrollbar-back-hover;
+}
+
+#datePicker {
+  color: @datepicker-color;
+  background: @datepicker-back;
+
+  .dates {
+    .dayName {
+      color: @datepicker-dayName-color;
+    }
+    .dayNumber {
+      color: @datepicker-dayNumber-color;
+
+      &.selected {
+        background: @datepicker-dayNumber-selected-back;
+        color: @datepicker-dayNumber-selected-color;
+      }
+      &.today {
+        box-shadow: inset 0 0 0 2px @datepicker-today-shadow;
+      }
+      &.selected.today {
+        box-shadow: inset 0 0 0 2px @datepicker-today-selected-shadow;
+      }
+    }
+  }
+}
+
+
+#settings {
+  background: @settings-back;
+  color: @settings-color;
+
+  .wrapper {
+    .section {
+      & > .element {
+        &.filtre:not(:last-child) {
+          border-bottom: .5px solid @settings-lastFilter-border;
+        }
+      }
+      .element {
+        select {
+          border: 1px solid @settings-widget-border;
+          background: @settings-widget-back;
+          color: @settings-color;
+          &.disabled {
+            color: @settings-disabled-color;
+            border-color: transparent; // TODO not here
+          }
+        }
+        label.disabled {
+          color: @settings-disabled-color;
+        }
+        input[type="checkbox"] {
+          color: @settings-color;
+          border: 1px solid @settings-widget-border;
+          &:checked {
+            background-color: @settings-check-checked-back;
+            border-color: @settings-check-checked-back;
+          }
+        }
+        &.disabled {
+          input[type="checkbox"] {
+            border-color: transparent; // TODO not here
+            &:checked {
+              background-color: @settings-disabled-color;
+            }
+          }
+          label {
+            color: @settings-disabled-color;
+          }
+          select {
+            color: @settings-disabled-color;
+            border-color: transparent; // TODO not here
+          }
+        }
+      }
+    }
+  }
+
+
+  button {
+    color: @settings-button-color;
+
+    &.cancel {
+      background: @settings-button-cancel-back;
+    }
+    &.save {
+      background: @settings-button-save-back;
+    }
+  }
+}
+
+#calendar {
+  background: @calendar-back;
+  color: @calendar-color;
+  #heures {
+    .ligne {
+      background: @calendar-line-color;
+    }
+    .classe {
+      color: @calendar-course-color;
+      background: @calendar-course-back;
+      &.disabled {
+        color: @calendar-course-disabled-color;
+        background: @calendar-course-disabled-back;
+        border: 1px solid @calendar-course-disabled-border;
+      }
+    }
+  }
+
+}
+
+#calendar.landscape {
+
+  #landscapeCurrentDay {
+    background: @calendar-landscape-currentDay-back;
+  }
+
+
+    #heures {
+    .day {
+      .classe {
+        border: 1px solid @calendar-landscape-course-border;
+      }
+    }
+  }
+
+}
+
+.notification {
+  color: @notification-color;
+  background: @notification-back;
+
+  &#offline, &#calendarError, &#dateError, &#majorError {
+    background: @notification-error-back;
+  }
+  &#online {
+    background: @notification-success-back;
+  }
+  ui-loading {
+    stroke: @notification-color;
+  }
+}
+
+nav {
+  background: @nav-back;
+  color:@nav-color;
+  box-shadow: 0 0 1em 0 @nav-shadow;
+  button {
+    background: @nav-button-back;
+  }
+}
+
+#gif-container {
+  background: @gif-back;
+}

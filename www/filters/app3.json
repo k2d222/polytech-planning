@@ -1,0 +1,33 @@
+{
+  "display":"APP3",
+  "key":"root",
+  "whitelist":["APP3"],
+  "subfilters": [
+    {
+      "key":"td",
+      "display":"Groupe de TD Tronc Commun",
+      "variable":["A", "B", "C", "D"],
+      "blacklist":["APP3 TC Gr[A-Z]"],
+      "whitelist":["APP3 TC Gr{td}"]
+    },
+    {
+      "key":"spe",
+      "display":"Spécialité",
+      "variable":{
+        "Electronique et systèmes robotisés":"ESR",
+        "Informatique":"INFO",
+        "Photonique systèmes optroniques":"PSO",
+        "Matériaux : mécanique et énergie":"MTX"
+      },
+      "blacklist":["APP3 (ESR|INFO|PSO|MTX)"],
+      "whitelist":["APP3 {spe}"]
+    },
+    {
+      "key":"lv2",
+      "display":"LV2 / anglais renforcé",
+      "variable":["Anglais Renforcé 1", "Anglais Renforcé 2", "Anglais Renforcé 3", "Espagnol 1", "Espagnol 2", "Allemand"],
+      "blacklist":["APP3 LV2- "],
+      "whitelist":["APP3 LV2- {lv2}"]
+    }
+  ]
+}

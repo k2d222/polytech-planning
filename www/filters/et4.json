@@ -1,0 +1,35 @@
+{
+  "display":"ET4",
+  "key":"root",
+  "whitelist":["ET4"],
+  "subfilters": [
+    {
+      "key":"ang",
+      "display":"Groupe d'anglais",
+      "variable":["1", "2", "3", "4", "5", "6", "7"],
+      "blacklist":["ET4 ANG\\d"],
+      "whitelist":["ET4 ANG{ang}"]
+    },
+    {
+      "key":"spe",
+      "display":"Spécialité",
+      "variable":{
+        "Electronique, énergie, systèmes":"EES",
+        "Informatique":"INFO",
+        "Photonique systèmes optroniques":"PSO",
+        "Matériaux : mécanique et énergie":"MTX"
+      },
+      "blacklist":["ET4 (EES|INFO|PSO|MTX)"],
+      "whitelist":["ET4 {spe}"],
+      "subfilters":[
+        {
+          "key":"tpspe",
+          "display":"Groupe de TP/TD Spécialité",
+          "variable":["1", "2"],
+          "blacklist":["ET4 {spe} Gr\\d"],
+          "whitelist":["ET4 {spe} Gr{tpspe}"]
+        }
+      ]
+    }
+  ]
+}

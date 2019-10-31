@@ -1,0 +1,135 @@
+svg {
+  fill: rgba(255, 255, 255, 0.87);
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.25);
+}
+.touched::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+#datePicker {
+  color: rgba(255, 255, 255, 0.87);
+  background: #121212;
+}
+#datePicker .dates .dayName {
+  color: rgba(255, 255, 255, 0.38);
+}
+#datePicker .dates .dayNumber {
+  color: rgba(255, 255, 255, 0.87);
+}
+#datePicker .dates .dayNumber.selected {
+  background: #03DAC5;
+  color: white;
+}
+#datePicker .dates .dayNumber.today {
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.38);
+}
+#datePicker .dates .dayNumber.selected.today {
+  box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.5);
+}
+#settings {
+  background: #121212;
+  color: rgba(255, 255, 255, 0.87);
+}
+#settings .wrapper .section > .element.filtre:not(:last-child) {
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.38);
+}
+#settings .wrapper .section .element select {
+  border: 1px solid rgba(255, 255, 255, 0.87);
+  background: #121212;
+  color: rgba(255, 255, 255, 0.87);
+}
+#settings .wrapper .section .element select.disabled {
+  color: rgba(255, 255, 255, 0.38);
+  border-color: transparent;
+}
+#settings .wrapper .section .element label.disabled {
+  color: rgba(255, 255, 255, 0.38);
+}
+#settings .wrapper .section .element input[type="checkbox"] {
+  color: rgba(255, 255, 255, 0.87);
+  border: 1px solid rgba(255, 255, 255, 0.87);
+}
+#settings .wrapper .section .element input[type="checkbox"]:checked {
+  background-color: #03DAC5;
+  border-color: #03DAC5;
+}
+#settings .wrapper .section .element.disabled input[type="checkbox"] {
+  border-color: transparent;
+}
+#settings .wrapper .section .element.disabled input[type="checkbox"]:checked {
+  background-color: rgba(255, 255, 255, 0.38);
+}
+#settings .wrapper .section .element.disabled label {
+  color: rgba(255, 255, 255, 0.38);
+}
+#settings .wrapper .section .element.disabled select {
+  color: rgba(255, 255, 255, 0.38);
+  border-color: transparent;
+}
+#settings button {
+  color: white;
+}
+#settings button.cancel {
+  background: #CF6679;
+}
+#settings button.save {
+  background: #4caf50;
+}
+#calendar {
+  background: #121212;
+  color: rgba(255, 255, 255, 0.38);
+}
+#calendar #heures .ligne {
+  background: rgba(255, 255, 255, 0.38);
+}
+#calendar #heures .classe {
+  color: rgba(255, 255, 255, 0.6);
+  background: #232323 !important;
+}
+#calendar #heures .classe.disabled {
+  color: #555;
+  background: #121212 !important;
+  border: 1px solid rgba(255, 255, 255, 0.38);
+}
+#calendar.landscape #landscapeCurrentDay {
+  background: rgba(0, 0, 255, 0.1);
+}
+#calendar.landscape #heures .day .classe {
+  border: 1px solid black;
+}
+.notification {
+  color: white;
+  background: #094270;
+}
+.notification#offline,
+.notification#calendarError,
+.notification#dateError,
+.notification#majorError {
+  background: red;
+}
+.notification#online {
+  background: green;
+}
+.notification ui-loading {
+  stroke: white;
+}
+nav {
+  background: #292929;
+  color: rgba(255, 255, 255, 0.87);
+  box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.5);
+}
+nav button {
+  background: transparent;
+}
+#gif-container {
+  background: rgba(0, 0, 0, 0.7);
+}
+@font-face {
+  font-family: roboto;
+  src: url(roboto.ttf);
+}
+body,
+html {
+  font-family: roboto, sans-serif;
+}

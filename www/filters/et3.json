@@ -1,0 +1,65 @@
+{
+  "display":"ET3",
+  "key":"root",
+  "whitelist":["ET3"],
+  "subfilters": [
+    {
+      "key":"td",
+      "display":"Groupe de TD Tronc Commun",
+      "variable":["1", "2", "3", "4", "5"],
+      "blacklist":["ET3 TC Gr\\d"],
+      "whitelist":["ET3 TC Gr{td}"],
+      "subfilters":[
+        {
+          "key":"tp",
+          "display":"Groupe de TP Tronc Commun",
+          "variable":["a", "b"],
+          "blacklist":["ET3 Gr{td}[a-z]"],
+          "whitelist":["ET3 Gr{td}{tp}"]
+        }
+      ]
+    },
+    {
+      "key":"ang",
+      "display":"Groupe d'anglais",
+      "variable":["1", "2", "3", "4", "5", "6", "7", "8"],
+      "blacklist":["ET3 ANG \\d"],
+      "whitelist":["ET3 ANG {ang}"]
+    },
+    {
+      "key":"com",
+      "display":"Groupe de communication",
+      "variable":["1", "2", "3", "4", "5", "6", "7", "8"],
+      "blacklist":["ET3 COM\\d"],
+      "whitelist":["ET3 COM{com}"]
+    },
+    {
+      "key":"eco",
+      "display":"Groupe d'économie",
+      "variable":["1", "2", "3"],
+      "blacklist":["ET3 ECO \\d"],
+      "whitelist":["ET3 ECO {eco}"]
+    },
+    {
+      "key":"spe",
+      "display":"Spécialité",
+      "variable":{
+        "Electronique et systèmes robotisés":"ESR",
+        "Informatique":"INFO",
+        "Photonique systèmes optroniques":"PSO",
+        "Matériaux : mécanique et énergie":"MTX"
+      },
+      "blacklist":["ET3 (ESR|INFO|PSO|MTX)"],
+      "whitelist":["ET3 {spe}"],
+      "subfilters":[
+        {
+          "key":"tpspe",
+          "display":"Groupe de TP Spécialité",
+          "variable":["1", "2"],
+          "blacklist":["ET3 {spe} Gr\\d"],
+          "whitelist":["ET3 {spe} Gr{tpspe}"]
+        }
+      ]
+    }
+  ]
+}

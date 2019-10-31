@@ -1,0 +1,35 @@
+{
+  "display":"ET5",
+  "key":"root",
+  "whitelist":["ET5"],
+  "subfilters": [
+    {
+      "key":"ang",
+      "display":"Groupe d'anglais",
+      "variable":["1", "2", "3", "4", "5", "6", "7"],
+      "blacklist":["ET5 ANG\\d"],
+      "whitelist":["ET5 ANG{ang}"]
+    },
+    {
+      "key":"spe",
+      "display":"Spécialité",
+      "variable":{
+        "Electronique, énergie, systèmes":"EES",
+        "Informatique":"INFO",
+        "Photonique systèmes optroniques":"PSO",
+        "Matériaux : mécanique et énergie":"MTX"
+      },
+      "blacklist":["ET5 (EES|INFO|PSO|MTX)"],
+      "whitelist":["ET5 {spe}"],
+      "subfilters":[
+        {
+          "key":"tpspe",
+          "display":"Groupe de TP/TD Spécialité",
+          "variable":["1", "2"],
+          "blacklist":["ET5 {spe} Gr\\d"],
+          "whitelist":["ET5 {spe} Gr{tpspe}"]
+        }
+      ]
+    }
+  ]
+}

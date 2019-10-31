@@ -1,0 +1,30 @@
+{
+  "display":"PeiP 2",
+  "key":"root",
+  "whitelist":["PEIP2"],
+  "subfilters": [
+    {
+      "key":"td",
+      "display":"Groupe de TD",
+      "variable":["1", "2", "3"],
+      "blacklist":["PEIP2 G\\d"],
+      "whitelist":["PEIP2 G{td}"],
+      "subfilters": [
+        {
+          "key":"tp",
+          "display":"Groupe de TP",
+          "variable":["A", "B"],
+          "blacklist":["PEIP2 Gr\\d-[A-Z]"],
+          "whitelist":["PEIP2 Gr{td}-{tp}"]
+        }
+      ]
+    },
+    {
+      "key":"ang",
+      "display":"Groupe d'anglais",
+      "variable":["A", "B", "C", "D", "E"],
+      "blacklist":["PEIP2 anglais-[A-Z]"],
+      "whitelist":["PEIP2 anglais-{ang}"]
+    }
+  ]
+}

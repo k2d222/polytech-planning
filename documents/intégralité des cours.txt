@@ -1,0 +1,143 @@
+
+---- PEIP1 ----
+electronique numérique
+optique
+evaluation
+parrainage
+mathématiques
+informatique
+anglais
+après midi associatives
+wec
+tutorat
+materiaux pour énergie / initiation aux materiaux
+robot
+accoustique musicale
+forces fondamentales
+IOT et objets connectés
+mécanique
+chimie
+python
+un labo dans la poche
+web
+evaluation des enseignements par les élèves
+
+
+---- PEIP2 ----
+ondes mécaniques
+architecture de la matière
+communication
+électricité et magnétisme / electromagnétisme
+tiers temps
+circuits numériques - microcontrolleurs
+commission préparatoire
+
+
+---- ET3 ----
+solidworks session rattrapage / atelier solidworks
+séminaire de la créativité
+liaison chimique dans les matériaux
+accueil
+bases d'électronique / composants de l'électronique
+réunion de rentrée
+physique PR / physique quantique
+réseaux
+conception assistée par ordinatuer (cmao)
+algorithmique
+base du développement logiciel
+économie générale
+forum internationnal
+mécanique du solide / mécanique des fluides
+automatique
+bases de données
+journée entreprise
+thermodynamique des materiaux
+
+
+---- ET4 ----
+??? GP, PPP, II, A C, GI, TI, ME, ACV, EE
+matériaux et rayonnement
+methode des éléments finis
+pptés magnétiques
+compléments d'objets
+fibres
+rentrée
+ACV1 dév. durable
+présentation projets interspécialités
+code V
+éco-conception
+méthodes numériques
+laser
+droit
+atelier
+conférence "entrepreunariat"
+microélectrique / micorélectronique
+green computing
+examen
+projet interspé
+test niveau anglais
+couplages multiphysiques
+asservissement électronique
+microstructure pptés mécaniques
+analyse du cycle de vie
+metallurgie
+compilation
+outils de programmation et c++
+programmation en nombres entiers
+etd de cas
+projet interspé: design thinking
+compta
+matlab
+certification voltaire
+soutenance
+enquète évaluation
+jeu d'entreprise
+
+
+---- ET5 ----
+??? AD-IHM, FGPA, II-TR, DSP, SOC, EVV
+systèmes optroniques
+data science / dataScience
+programmation c++11 avancée
+soutenance de stage
+photonique pour le biomédical / photonique biomédicale
+génie logiciel
+informatique industrielle
+calcul haute performance
+algorithmes distribués
+minutes de l'ingénieur
+sélection des matériaux et procédés
+adhésion
+dynamique entrepreunariale
+management et leadership
+gestion de projets
+gestion industrielle
+programmation stochastique
+méthode et projet en éléments finis
+projet personnel professionnel 
+architecture orientée services
+traitement numérique du signal
+marchés financiers
+big data
+projet technique
+biomatériaux
+mise en forme et assemblage
+couches minces pour le photovoltaique
+télécommunications optiques
+minutes de l'ingénieur
+conférences
+télécommunications optiques : amplis
+traitement d'images
+optomécanique
+conférence handicap
+android
+materiaux composites
+développement durable
+LIDAR
+Actionneurs
+filière hydrogène et énergies renouvlables
+formation d'image et interférométrie
+parallélisme
+.NET
+
+.... 09/12/19

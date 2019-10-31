@@ -1,0 +1,19 @@
+{
+  "display":"APP5",
+  "key":"root",
+  "whitelist":["APP5"],
+  "subfilters": [
+    {
+      "key":"spe",
+      "display":"Spécialité",
+      "variable":{
+        "Electronique, énergie, systèmes":"EES",
+        "Informatique":"INFO",
+        "Photonique systèmes optroniques":"PSO",
+        "Matériaux : mécanique et énergie":"MTX"
+      },
+      "blacklist":["APP5 (EES|INFO|PSO|MTX)"],
+      "whitelist":["APP5 {spe}"]
+    }
+  ]
+}

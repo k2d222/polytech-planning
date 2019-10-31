@@ -1,0 +1,37 @@
+{
+  "display":"PeiP C",
+  "key":"root",
+  "whitelist":["PEIPC"],
+  "subfilters": [
+    {
+      "key":"tp",
+      "display":"Groupe de TP",
+      "variable":["1", "2"],
+      "blacklist":["PEIPC-TP\\d"],
+      "whitelist":["PEIPC-TP{tp}"]
+    },
+    {
+      "key":"ang",
+      "display":"Groupe d'anglais",
+      "variable":["A", "B", "C", "D", "E", "F"],
+      "blacklist":["PEIPC Anglais-[A-Z]"],
+      "whitelist":["PEIPC Anglais-{ang}"]
+    },
+    {
+      "key":"opt",
+      "display":"Option",
+      "variable":{
+        "Forces fondamentales":"FF",
+        "Initiation aux materiaux":"MTX",
+        "Robot":"Robot",
+        "Acoustique musicale":"AM",
+        "Materiaux pour l'energie":"MATENERGIE",
+        "IOT et objets connectés":"IOT",
+        "Web":"Web",
+        "Un labo dans la poche":"Un labo dans la poche"
+      },
+      "blacklist":["PEIP1 - (FF|MTX|Robot|AM|MATENERGIE|IOT|Web|Un labo dans la poche)"],
+      "whitelist":["PEIP1 - {opt}"]
+    }
+  ]
+}
