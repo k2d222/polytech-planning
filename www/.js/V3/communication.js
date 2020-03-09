@@ -90,7 +90,11 @@ function requestWeek(dateString) {
     }
   })
   .then(function() {
-    return request('parseThisWeek', []);
+    return request('parseThisWeek', [])
+    .then(function(res) {
+      console.log(res);
+      return res;
+    })
   });
 
 }

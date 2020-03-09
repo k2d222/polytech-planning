@@ -2,15 +2,15 @@ console.log('successfully injected script to webview');
 
 var startTimestamp = Date.now();
 var lastUpdateTimestamp = Date.now();
+var packets = [];
 
 setInterval(function() {
   lastUpdateTimestamp = Date.now();
-  console.log(lastUpdateTimestamp);
+  console.log('timestamp:', lastUpdateTimestamp);
 }, 1000);
 
 function isConnected() {
   let date = Date.now();
-  console.log(date, lastUpdateTimestamp, startTimestamp, (date - lastUpdateTimestamp) < 5000);
   if( ( date - startTimestamp) < 10000 ) return true;
   return (date - lastUpdateTimestamp) < 5000;
   // if( $('.x-adeDialog').length > 0 ) {
@@ -108,11 +108,31 @@ function parseThisWeek() {
   }
 
   let mini = minifyData(thisWeek);
+
+  // pervent bug when too much data is sent at once
+
   let obj = {
     date: getCurrentDate(),
     days: mini
   };
+  const str = JSON.stringify(obj);
+  if(str.length > 10000) return packetify(str);
   return obj;
+}
+
+function packetify(str) {
+  console.log('packetify');
+  const packetSize = 5000;
+  const size = str.length
+  for (var i = 0; i < size; i+= packetSize) {
+    packets.unshift( str.substring(i, i + packetSize) );
+  }
+  return { packetified: true };
+}
+
+function getPacket() {
+  if (packets.length === 0) return false;
+  else return packets.pop();
 }
 
 function clickButton(dateString) {
@@ -154,3 +174,4 @@ window.isWeekLoaded = isWeekLoaded;
 window.parseThisWeek = parseThisWeek;
 window.clickButton = clickButton;
 window.getCurrentDate = getCurrentDate;
+window.getPacket = getPacket;
