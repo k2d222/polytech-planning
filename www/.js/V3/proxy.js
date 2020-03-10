@@ -1,7 +1,7 @@
 export const Proxy = {
 
-  APP_VERSION: 10050,
-  STORAGE_VERSION: '5',
+  APP_VERSION: 10060,
+  STORAGE_VERSION: '6',
 
   $CALENDAR: $('#calendar'),
   $CALENDAR_CONTENT: $('#calendar .content'),

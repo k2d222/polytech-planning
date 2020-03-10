@@ -1,0 +1,54 @@
+//out:minimalist.css
+
+@color: black;
+@color-medium: gray;
+@color-disabled: lightgray;
+@back: white;
+@primary: #03DAC5;
+
+@import ".settings.less";
+
+@datepicker-back:#e6e6e6;
+@datepicker-dayName-color:@color-medium;
+
+@calendar-color: @back;
+@calendar-line-color: @back;
+
+@import (less) ".common.less";
+
+
+#calendar #heures .classe {
+  border-radius: none;
+  border: 1px solid @color;
+  padding: 0;
+  padding-left:1em;
+  text-align: right;
+
+  .wrapper {
+    background: @back;
+    padding:.5em;
+    padding-left: 1em;
+
+    .content {
+      text-align:left;
+    }
+  }
+
+  &.disabled {
+    border: 1px solid @color-disabled;
+    padding: 0;
+    color: @back;
+
+    &:hover {
+      color: @color-medium;
+    }
+  }
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+::-webkit-scrollbar-thumb {
+    border: 0;
+    border-radius: 0;
+}

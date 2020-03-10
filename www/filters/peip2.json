@@ -25,6 +25,13 @@
       "variable":["A", "B", "C", "D", "E"],
       "blacklist":["PEIP2 anglais-[A-Z]"],
       "whitelist":["PEIP2 anglais-{ang}"]
+    },
+    {
+      "key":"opt",
+      "display":"Option",
+      "variable":["MTX", "PSO", "INFO", "ESR"],
+      "blacklist":["PEIP2A-option(ESR|INFO|PSO|MTX)"],
+      "whitelist":["PEIP2A-option{opt}"]
     }
   ]
 }

@@ -1,0 +1,153 @@
+svg {
+  fill: white;
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.25);
+}
+.touched::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+#datePicker {
+  color: white;
+  background: black;
+}
+#datePicker .dates .dayName {
+  color: gray;
+}
+#datePicker .dates .dayNumber {
+  color: white;
+}
+#datePicker .dates .dayNumber.selected {
+  background: #03DAC5;
+  color: white;
+}
+#datePicker .dates .dayNumber.today {
+  box-shadow: inset 0 0 0 2px gray;
+}
+#datePicker .dates .dayNumber.selected.today {
+  box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.5);
+}
+#settings {
+  background: black;
+  color: white;
+}
+#settings .wrapper .section > .element.filtre:not(:last-child) {
+  border-bottom: 0.5px solid gray;
+}
+#settings .wrapper .section .element select {
+  border: 1px solid lightgray;
+  background: black;
+  color: white;
+}
+#settings .wrapper .section .element select.disabled {
+  color: gray;
+  border-color: transparent;
+}
+#settings .wrapper .section .element label.disabled {
+  color: gray;
+}
+#settings .wrapper .section .element input[type="checkbox"] {
+  color: white;
+  border: 1px solid lightgray;
+}
+#settings .wrapper .section .element input[type="checkbox"]:checked {
+  background-color: #03DAC5;
+  border-color: #03DAC5;
+}
+#settings .wrapper .section .element.disabled input[type="checkbox"] {
+  border-color: transparent;
+}
+#settings .wrapper .section .element.disabled input[type="checkbox"]:checked {
+  background-color: gray;
+}
+#settings .wrapper .section .element.disabled label {
+  color: gray;
+}
+#settings .wrapper .section .element.disabled select {
+  color: gray;
+  border-color: transparent;
+}
+#settings button {
+  color: white;
+}
+#settings button.cancel {
+  background: red;
+}
+#settings button.save {
+  background: green;
+}
+#calendar {
+  background: black;
+  color: gray;
+}
+#calendar #heures .ligne {
+  background: black;
+}
+#calendar #heures .classe {
+  color: black;
+  background: auto;
+}
+#calendar #heures .classe.disabled {
+  color: #555;
+  background: black !important;
+  border: 1px solid gray;
+}
+#calendar.landscape #landscapeCurrentDay {
+  background: rgba(0, 0, 255, 0.25);
+}
+#calendar.landscape #heures .day .classe {
+  border: 1px solid black;
+}
+.notification {
+  color: white;
+  background: #094270;
+}
+.notification#offline,
+.notification#calendarError,
+.notification#dateError,
+.notification#majorError {
+  background: red;
+}
+.notification#online {
+  background: green;
+}
+.notification ui-loading {
+  stroke: white;
+}
+nav {
+  background: black;
+  color: white;
+  box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.5);
+}
+nav button {
+  background: transparent;
+}
+#gif-container {
+  background: rgba(0, 0, 0, 0.7);
+}
+#calendar #heures .classe {
+  border-radius: none;
+  border: 1px solid white;
+  padding: 0;
+  padding-left: 1em;
+  text-align: right;
+}
+#calendar #heures .classe .wrapper {
+  background: black;
+  padding: .5em;
+  padding-left: 1em;
+}
+#calendar #heures .classe .wrapper .content {
+  text-align: left;
+}
+#calendar #heures .classe.disabled {
+  border: 1px solid gray;
+  padding-left: 1em;
+}
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-thumb {
+  border: 0;
+  border-radius: 0;
+}

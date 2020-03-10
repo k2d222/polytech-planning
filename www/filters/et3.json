@@ -41,6 +41,13 @@
       "whitelist":["ET3 ECO {eco}"]
     },
     {
+      "key":"mar",
+      "display":"Groupe de marketing",
+      "variable":["1", "2", "3", "4", "5", "6", "7", "8"],
+      "blacklist":["ET3 MAR \\d"],
+      "whitelist":["ET3 MAR {mar}"]
+    },
+    {
       "key":"spe",
       "display":"Spécialité",
       "variable":{

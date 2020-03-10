@@ -204,6 +204,8 @@ svg {
   border-radius: .2em;
   width: calc(100vmin - 6em);
   padding: 0.2em;
+  height: 100%;
+  margin-top: .5em;
 }
 #calendar #heures .classe > .wrapper {
   overflow: auto;
@@ -247,6 +249,7 @@ svg {
   display: grid;
   grid-row: 1 / 48;
   grid-template-rows: repeat(48, calc( (100vh - 5.5em) / 48));
+  position: relative;
 }
 #calendar.landscape #heures .day .classe {
   grid-column: 1;
@@ -254,6 +257,8 @@ svg {
   width: auto;
   font-size: .8em;
   border-radius: 0;
+  position: absolute;
+  margin: 0;
 }
 .notification {
   position: fixed;
