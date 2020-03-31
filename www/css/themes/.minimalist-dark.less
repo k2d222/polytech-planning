@@ -1,0 +1,53 @@
+//out:minimalist-dark.css
+
+@color: white;
+@color-medium: lightgray;
+@color-disabled: gray;
+@back: black;
+@primary: #03DAC5;
+
+@import ".settings.less";
+
+@calendar-course-color: black;
+
+@calendar-color: @color-disabled;
+@calendar-line-color: @back;
+
+@calendar-course-disabled-back: @back !important;
+@calendar-course-disabled-border: @color-disabled;
+
+@calendar-landscape-currentDay-back: rgba(0, 0, 255, 0.25);
+
+@import (less) ".common.less";
+
+
+#calendar #heures .classe {
+  border-radius: none;
+  border: 1px solid @color;
+  padding: 0;
+  padding-left:1em;
+  text-align: right;
+
+  .wrapper {
+    background: @back;
+    padding:.5em;
+    padding-left: 1em;
+
+    .content {
+      text-align:left;
+    }
+  }
+
+  &.disabled {
+    border: 1px solid @color-disabled;
+    padding-left: 1em;
+  }
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+::-webkit-scrollbar-thumb {
+    border: 0;
+    border-radius: 0;
+}

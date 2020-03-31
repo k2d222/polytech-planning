@@ -70,40 +70,70 @@ function getEmptySpace(matrix, el) {
   }
 
   return {
-    'grid-row-start': startRow + 1 + "",
-    'grid-row-end': endRow + 1 + "",
-    'grid-column-start': y + 2 + "",
-    'grid-column-end': y + 2 + width + ""
+    x1: y,
+    x2: y + width,
+    y1: startRow + 1,
+    y2: endRow + 1
   }
 }
 
-function landscapeXalign($el, $day) {
-  let start = parseInt( $el.css('grid-row-start') );
-  let end   = parseInt( $el.css('grid-row-end') );
-  let collisions = [$el];
+function collides($course1, $course2) {
+  const start = parseInt( $course1.css('grid-row-start') );
+  const end = parseInt( $course1.css('grid-row-end') );
+  const otherStart = parseInt( $course2.css('grid-row-start') );
+  const otherEnd = parseInt( $course2.css('grid-row-end') );
+  return(start < otherEnd && otherStart < end);
+}
 
-  for (let course of $day.children()) {
-    let $other = $(course);
-    let otherStart = parseInt( $other.css('grid-row-start') );
-    let otherEnd = parseInt( $other.css('grid-row-end') );
-    if(  start == otherStart || end == otherEnd
-      || start > otherStart && start < otherEnd
-      || end   > otherStart && end   < otherEnd
-      || start <  otherStart && end  >  otherEnd
-      || start >  otherStart && end  <  otherEnd
-    ) {
-      collisions.push($other);
+function landscapeXalign($day) {
+  const placed = [];
+  const $courses = $day.children();
+  $courses.data('x', 0);
+  $courses.data('xMax', 0);
+
+  // find x
+  for (let course1 of $courses) {
+    const $course1 = $(course1);
+    let x1 = $course1.data('x');
+
+    for (let course2 of placed) {
+      const $course2 = $(course2);
+      const x2 = $course2.data('x');
+      if( x1 === x2 && collides($course1, $course2) ) {
+        x1++;
+      }
+    }
+    $course1.data('x', x1);
+    placed.push(course1);
+  }
+
+  // find xMax
+  for (let course1 of $courses) {
+    const $course1 = $(course1);
+    let xMax1 = $course1.data('x');
+
+    for (let course2 of $courses) {
+      const $course2 = $(course2);
+      const xMax2 = $course2.data('x');
+      if( collides($course1, $course2) ) {
+        xMax1 = Math.max( xMax1, xMax2 );
+      }
+    }
+    $course1.data('xMax', xMax1);
+  }
+
+  for ( let course of $courses ) {
+    const $course = $(course);
+    const x = $course.data('x');
+    const xMax = $course.data('xMax') + 1;
+    $course.css({
+      'left': 100 / xMax * x + '%',
+      'width': 'calc(' + 100 / xMax + '% + 1px)' // 1px for the css border
+    });
+    if(x + 1 === xMax) {
+      $course.css({'width': 'calc(' + 100 / xMax + '%)'})
     }
   }
-  let collisionCount = collisions.length;
-  for (let i in collisions) {
-    collisions[i].css({
-      'left': 100 / collisionCount * i + '%',
-      'width': 'calc(' + 100 / collisionCount + '% + 1px)' // 1px for the css border
-      // 'width': 100 / collisionCount + '%'
-    });
-  }
-  collisions[collisions.length-1].css('width', 100 / collisionCount + '%');
 }
 
 function drawDate(dateString) {
@@ -119,10 +149,14 @@ function drawCourses(day) {
   let maxColumn = 3;
   for(let course of day) {
     let $course = $(P.html.COURSE);
-    let position = getEmptySpace(matrix, course);
-    $course.css(position);
-    let col = parseInt(position['grid-column-end']);
-    if(col > maxColumn) maxColumn = col;
+    let pos = getEmptySpace(matrix, course);
+    $course.css({
+      'grid-row-start': pos.y1 + "",
+      'grid-row-end': pos.y2 + "",
+      'grid-column-start': pos.x1 + 2 + "",
+      'grid-column-end': pos.x2 + 2 + ""
+    });
+    maxColumn = Math.max(pos.x2 + 2, maxColumn);
     if(course.blacklisted) $course.addClass('disabled');
     else $course.css('background', course.background);
 
@@ -143,7 +177,7 @@ function drawCoursesLandscape(day, dayNumber) {
   });
   P.$COURSE_CONTAINER.append($day);
 
-  let matrix = createMatrix();
+  // let matrix = createMatrix();
 
   for(let course of day) {
     if(course.blacklisted) continue;
@@ -156,7 +190,6 @@ function drawCoursesLandscape(day, dayNumber) {
       'grid-row-start': startRow + 1 + "",
       'grid-row-end': endRow + 1 + ""
     });
-    landscapeXalign($course, $day);
 
     let $textWrapper = $(P.html.COURSE_CONTENT_WRAPPER);
     let $textContent = $(P.html.COURSE_CONTENT);
@@ -165,6 +198,7 @@ function drawCoursesLandscape(day, dayNumber) {
     $course.append($textWrapper);
     $day.append($course)
   }
+  landscapeXalign($day);
 }
 
 let drawMode = 'portrait';

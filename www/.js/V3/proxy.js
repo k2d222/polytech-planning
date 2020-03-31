@@ -1,7 +1,7 @@
 export const Proxy = {
 
-  APP_VERSION: 10040,
-  STORAGE_VERSION: '4',
+  APP_VERSION: 10060,
+  STORAGE_VERSION: '6',
 
   $CALENDAR: $('#calendar'),
   $CALENDAR_CONTENT: $('#calendar .content'),
@@ -39,6 +39,7 @@ export const Proxy = {
   $GIF_IMG: $('#gif-container img'),
 
   INAPPBROWSER_SETTINGS: 'location=no,zoom=no,hidden=yes,shouldPauseOnSuspend=no',
+  INAPPBROWSER_EXECUTE_TIMEOUT: 5000,
 
   GIF_URL: 'https://polytech.thissma.fr/gifs/',
   GIF_URL_PHP: 'https://polytech.thissma.fr/nicegif.php',

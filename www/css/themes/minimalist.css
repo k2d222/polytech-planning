@@ -1,0 +1,157 @@
+svg {
+  fill: black;
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.25);
+}
+.touched::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+#datePicker {
+  color: black;
+  background: #e6e6e6;
+}
+#datePicker .dates .dayName {
+  color: gray;
+}
+#datePicker .dates .dayNumber {
+  color: black;
+}
+#datePicker .dates .dayNumber.selected {
+  background: #03DAC5;
+  color: white;
+}
+#datePicker .dates .dayNumber.today {
+  box-shadow: inset 0 0 0 2px lightgray;
+}
+#datePicker .dates .dayNumber.selected.today {
+  box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.5);
+}
+#settings {
+  background: white;
+  color: black;
+}
+#settings .wrapper .section > .element.filtre:not(:last-child) {
+  border-bottom: 0.5px solid lightgray;
+}
+#settings .wrapper .section .element select {
+  border: 1px solid gray;
+  background: white;
+  color: black;
+}
+#settings .wrapper .section .element select.disabled {
+  color: lightgray;
+  border-color: transparent;
+}
+#settings .wrapper .section .element label.disabled {
+  color: lightgray;
+}
+#settings .wrapper .section .element input[type="checkbox"] {
+  color: black;
+  border: 1px solid gray;
+}
+#settings .wrapper .section .element input[type="checkbox"]:checked {
+  background-color: #03DAC5;
+  border-color: #03DAC5;
+}
+#settings .wrapper .section .element.disabled input[type="checkbox"] {
+  border-color: transparent;
+}
+#settings .wrapper .section .element.disabled input[type="checkbox"]:checked {
+  background-color: lightgray;
+}
+#settings .wrapper .section .element.disabled label {
+  color: lightgray;
+}
+#settings .wrapper .section .element.disabled select {
+  color: lightgray;
+  border-color: transparent;
+}
+#settings button {
+  color: white;
+}
+#settings button.cancel {
+  background: red;
+}
+#settings button.save {
+  background: green;
+}
+#calendar {
+  background: white;
+  color: white;
+}
+#calendar #heures .ligne {
+  background: white;
+}
+#calendar #heures .classe {
+  color: black;
+  background: auto;
+}
+#calendar #heures .classe.disabled {
+  color: #555;
+  background: repeating-linear-gradient(45deg, white, white 1em, #e8e8e8 1em, #e8e8e8 2em);
+  border: 1px solid #e8e8e8;
+}
+#calendar.landscape #landscapeCurrentDay {
+  background: rgba(0, 0, 255, 0.1);
+}
+#calendar.landscape #heures .day .classe {
+  border: 1px solid black;
+}
+.notification {
+  color: white;
+  background: #094270;
+}
+.notification#offline,
+.notification#calendarError,
+.notification#dateError,
+.notification#majorError {
+  background: red;
+}
+.notification#online {
+  background: green;
+}
+.notification ui-loading {
+  stroke: white;
+}
+nav {
+  background: white;
+  color: black;
+  box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.5);
+}
+nav button {
+  background: transparent;
+}
+#gif-container {
+  background: rgba(0, 0, 0, 0.7);
+}
+#calendar #heures .classe {
+  border-radius: none;
+  border: 1px solid black;
+  padding: 0;
+  padding-left: 1em;
+  text-align: right;
+}
+#calendar #heures .classe .wrapper {
+  background: white;
+  padding: .5em;
+  padding-left: 1em;
+}
+#calendar #heures .classe .wrapper .content {
+  text-align: left;
+}
+#calendar #heures .classe.disabled {
+  border: 1px solid lightgray;
+  padding: 0;
+  color: white;
+}
+#calendar #heures .classe.disabled:hover {
+  color: gray;
+}
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-thumb {
+  border: 0;
+  border-radius: 0;
+}

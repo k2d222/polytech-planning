@@ -21,6 +21,32 @@ function executeScript(textScript) {
   .then(function() {
     return promiseExecute(textScript)
   })
+  .then(function(res) {
+    if(typeof res === 'object' && res.packetified === true) {
+      return packetify();
+    }
+    else return res;
+  })
+}
+
+function packetify() {
+  let packets = '';
+
+  function getNextPacket() {
+    return promiseExecute('getPacket()')
+    .then(function(res) {
+      if(res === false) return;
+      packets += res;
+      return getNextPacket();
+    });
+  }
+
+  return getNextPacket()
+  .then(function() {
+    const obj = JSON.parse(packets);
+    console.log('resolved packet :', obj);
+    return obj;
+  });
 }
 
 function promiseExecute(textScript) {
@@ -32,7 +58,7 @@ function promiseExecute(textScript) {
       });
       setTimeout(function() {
         reject(new Error('timeout err'));
-      }, 5000);
+      }, P.INAPPBROWSER_EXECUTE_TIMEOUT);
     }
   });
 }

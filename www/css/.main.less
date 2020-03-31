@@ -242,6 +242,8 @@ svg {
       border-radius: .2em;
       width: ~"calc(100vmin - 6em)";
       padding: 0.2em;
+      height: 100%;
+      margin-top: .5em;
 
       > .wrapper {
         overflow: auto;
@@ -294,6 +296,7 @@ svg {
       display: grid;
       grid-row: ~"1 / @{rows}";
       grid-template-rows: repeat(@rows, ~"calc( (100vh - 5.5em) / @{rows})" );
+      position:relative;
 
       .classe {
         grid-column: 1;
@@ -302,6 +305,8 @@ svg {
         // margin: .5px;
         font-size: .8em;
         border-radius:0;
+        position: absolute;
+        margin:0;
       }
     }
   }

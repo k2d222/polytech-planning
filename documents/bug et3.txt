@@ -1,0 +1,4 @@
+2 mars -> 66    (OK)
+9 mars -> 73 	(ERR)
+16 mars -> 71	(OK)
+23 mars -> 76	(ERR)
