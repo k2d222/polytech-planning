@@ -1,12 +1,10 @@
 import { Proxy as P } from './proxy.js'
 
 import { Settings } from './settings.js'
-import { Notification } from './notification.js'
 import { Calendar } from './calendar.js'
 import { CalendarDrawer } from './calendarDrawer.js'
 import { Day } from './day.js'
 import { DatePicker } from './datepicker.js'
-import { Storage } from './storage.js'
 
 $(document.body).on('touchmove', function(e) {
   let set = [e.target, ...$(e.target).parents()];

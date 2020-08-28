@@ -1,5 +1,4 @@
 import { Settings } from './settings.js';
-import { Notification } from './notification.js';
 import { Proxy as P } from './proxy.js'
 
 function init() {

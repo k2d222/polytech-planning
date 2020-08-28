@@ -5,7 +5,6 @@ import { Filter } from './filter.js'
 import { Calendar } from './calendar.js'
 import { Network } from './network.js'
 import { InappBrowser } from './inappbrowser.js'
-import { Communication } from './communication.js'
 import { Day } from './day.js'
 import { Theme } from './theme.js'
 

@@ -1,5 +1,4 @@
 import { Storage } from './storage.js';
-import { Proxy as P } from './proxy.js'
 
 var loadedFilter;
 var filterName = '';

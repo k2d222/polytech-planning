@@ -1,7 +1,4 @@
-import { Calendar } from './calendar.js'
 import { Day } from './day.js'
-import { Notification } from './notification.js'
-import { App } from './app.js'
 import { InappBrowser } from './inappbrowser.js'
 import { Proxy as P } from './proxy.js'
 

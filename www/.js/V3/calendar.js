@@ -3,8 +3,6 @@ import { Communication } from './communication.js';
 import { Notification } from './notification.js'
 import { Day } from './day.js';
 import { Network } from './network.js';
-import { InappBrowser } from './inappbrowser.js';
-import { Filter } from './filter.js';
 import { CalendarDrawer } from './calendarDrawer.js';
 import { Proxy as P } from './proxy.js'
 
