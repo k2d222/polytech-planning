@@ -10,12 +10,12 @@ function drawLines() {
     let $hour = $(P.html.HOUR);
     $hour.html(hour + ' h');
     $hour.css({
-      gridRow: (i*4+1) + ""
+      gridRow: (i * 4 + 1) + ""
     })
     P.$COURSE_CONTAINER.append($hour);
     var $line = $(P.html.HOUR_LINE);
     $line.css({
-      gridRow: (i*4+1) + ""
+      gridRow: (i * 4 + 1) + ""
     })
     P.$COURSE_CONTAINER.append($line);
   }
@@ -23,48 +23,48 @@ function drawLines() {
 
 function expandData(mini) {
   let expanded = [];
-  for(let i in mini) {
+  for (let i in mini) {
     expanded[i] = {
-      start:{ hour:mini[i][0][0], minute:mini[i][0][1] },
-      end:  { hour:mini[i][1][0], minute:mini[i][1][1] },
-      title:mini[i][2], background:mini[i][3],
+      start: { hour: mini[i][0][0], minute: mini[i][0][1] },
+      end: { hour: mini[i][1][0], minute: mini[i][1][1] },
+      title: mini[i][2], background: mini[i][3],
     };
     expanded[i].blacklisted = Filter.filterElement(expanded[i]);
   }
-  expanded.sort((a, b) => {return !b.blacklisted ? 1 : -1}); // not blacklisted comes first
+  expanded.sort((a, b) => { return !b.blacklisted ? 1 : -1 }); // not blacklisted comes first
   return expanded;
 }
 
 function createMatrix() {
   let matrix = []
   const n_hours = P.END_HOUR - P.START_HOUR;
-  for(let i = 0; i < 4 * n_hours; i++) {
+  for (let i = 0; i < 4 * n_hours; i++) {
     matrix[i] = [];
   }
   return matrix;
 }
 
 function getEmptySpace(matrix, el) {
-  let startRow = (el.start.hour-P.START_HOUR)*4 + el.start.minute / 15
-  let endRow   = (el.end.hour  -P.START_HOUR)*4 + el.end.minute   / 15
+  let startRow = (el.start.hour - P.START_HOUR) * 4 + el.start.minute / 15
+  let endRow = (el.end.hour - P.START_HOUR) * 4 + el.end.minute / 15
   let width = el.blacklisted ? 1 : 2;
   let y = 0;
   let spaceNotFound = true;
   while (matrix[startRow][y] === true) y++;
 
   let checkYOffset = (y) => {
-    for(let j = y; j < y + width; j++) {
-      for(let i = startRow; i < endRow; i++) {
-        if(typeof matrix[i][j] === 'undefined') matrix[i][j] = false;
-        if(matrix[i][j] === true) return false;
+    for (let j = y; j < y + width; j++) {
+      for (let i = startRow; i < endRow; i++) {
+        if (typeof matrix[i][j] === 'undefined') matrix[i][j] = false;
+        if (matrix[i][j] === true) return false;
       }
     }
     return true
   };
   while (!checkYOffset(y)) y++;
 
-  for(let j = y; j < y + width; j++) { // fill empty space
-    for(let i = startRow; i < endRow; i++) {
+  for (let j = y; j < y + width; j++) { // fill empty space
+    for (let i = startRow; i < endRow; i++) {
       matrix[i][j] = true;
     }
   }
@@ -78,11 +78,11 @@ function getEmptySpace(matrix, el) {
 }
 
 function collides($course1, $course2) {
-  const start = parseInt( $course1.css('grid-row-start') );
-  const end = parseInt( $course1.css('grid-row-end') );
-  const otherStart = parseInt( $course2.css('grid-row-start') );
-  const otherEnd = parseInt( $course2.css('grid-row-end') );
-  return(start < otherEnd && otherStart < end);
+  const start = parseInt($course1.css('grid-row-start'));
+  const end = parseInt($course1.css('grid-row-end'));
+  const otherStart = parseInt($course2.css('grid-row-start'));
+  const otherEnd = parseInt($course2.css('grid-row-end'));
+  return (start < otherEnd && otherStart < end);
 }
 
 function landscapeXalign($day) {
@@ -99,7 +99,7 @@ function landscapeXalign($day) {
     for (let course2 of placed) {
       const $course2 = $(course2);
       const x2 = $course2.data('x');
-      if( x1 === x2 && collides($course1, $course2) ) {
+      if (x1 === x2 && collides($course1, $course2)) {
         x1++;
       }
     }
@@ -115,14 +115,14 @@ function landscapeXalign($day) {
     for (let course2 of $courses) {
       const $course2 = $(course2);
       const xMax2 = $course2.data('x');
-      if( collides($course1, $course2) ) {
-        xMax1 = Math.max( xMax1, xMax2 );
+      if (collides($course1, $course2)) {
+        xMax1 = Math.max(xMax1, xMax2);
       }
     }
     $course1.data('xMax', xMax1);
   }
 
-  for ( let course of $courses ) {
+  for (let course of $courses) {
     const $course = $(course);
     const x = $course.data('x');
     const xMax = $course.data('xMax') + 1;
@@ -130,8 +130,8 @@ function landscapeXalign($day) {
       'left': 100 / xMax * x + '%',
       'width': 'calc(' + 100 / xMax + '% + 1px)' // 1px for the css border
     });
-    if(x + 1 === xMax) {
-      $course.css({'width': 'calc(' + 100 / xMax + '%)'})
+    if (x + 1 === xMax) {
+      $course.css({ 'width': 'calc(' + 100 / xMax + '%)' })
     }
   }
 }
@@ -147,7 +147,7 @@ function drawDate(dateString) {
 function drawCourses(day) {
   let matrix = createMatrix();
   let maxColumn = 3;
-  for(let course of day) {
+  for (let course of day) {
     let $course = $(P.html.COURSE);
     let pos = getEmptySpace(matrix, course);
     $course.css({
@@ -157,7 +157,7 @@ function drawCourses(day) {
       'grid-column-end': pos.x2 + 2 + ""
     });
     maxColumn = Math.max(pos.x2 + 2, maxColumn);
-    if(course.blacklisted) $course.addClass('disabled');
+    if (course.blacklisted) $course.addClass('disabled');
     else $course.css('background', course.background);
 
     let $textWrapper = $(P.html.COURSE_CONTENT_WRAPPER);
@@ -173,18 +173,18 @@ function drawCourses(day) {
 function drawCoursesLandscape(day, dayNumber) {
   let $day = $(P.html.LANDSCAPE_DAY);
   $day.css({
-    gridColumn: dayNumber+1 + "",
+    gridColumn: dayNumber + 1 + "",
   });
   P.$COURSE_CONTAINER.append($day);
 
   // let matrix = createMatrix();
 
-  for(let course of day) {
-    if(course.blacklisted) continue;
+  for (let course of day) {
+    if (course.blacklisted) continue;
     let $course = $(P.html.COURSE);
 
-    const startRow = (course.start.hour-P.START_HOUR)*4 + course.start.minute / 15;
-    const endRow   = (course.end.hour  -P.START_HOUR)*4 + course.end.minute   / 15;
+    const startRow = (course.start.hour - P.START_HOUR) * 4 + course.start.minute / 15;
+    const endRow = (course.end.hour - P.START_HOUR) * 4 + course.end.minute / 15;
     $course.css({
       background: course.background,
       'grid-row-start': startRow + 1 + "",
@@ -208,11 +208,11 @@ function setDrawMode(mode) {
 }
 
 function drawLandscape(dateString, storage) {
-  P.$LANDSCAPE_CURRENT_DAY.css('grid-column', Day.day(dateString)+1 + "");
-  if(storage !== null) {
+  P.$LANDSCAPE_CURRENT_DAY.css('grid-column', Day.day(dateString) + 1 + "");
+  if (storage !== null) {
     dateString = Day.monday(dateString);
     for (var i = 1; i < 6; i++) {
-      let day = expandData( storage[dateString] );
+      let day = expandData(storage[dateString]);
       drawCoursesLandscape(day, i);
       dateString = Day.add(dateString, 1);
     }
@@ -220,20 +220,20 @@ function drawLandscape(dateString, storage) {
 }
 
 function drawPortrait(dateString, storage) {
-  if(storage !== null) {
-    let day = expandData( storage[dateString] );
+  if (storage !== null) {
+    let day = expandData(storage[dateString]);
     drawCourses(day);
   }
 }
 
-function draw(dateString, storage=null) {
+function draw(dateString, storage = null) {
   Notification.hide('calendarError');
   $(P.$.COURSE).remove();
   $(P.$.LANDSCAPE_DAY).remove();
   $(P.$CALENDAR).removeClass('portrait landscape').addClass(drawMode);
-  if(drawMode === 'landscape') drawLandscape(dateString, storage);
+  if (drawMode === 'landscape') drawLandscape(dateString, storage);
   else drawPortrait(dateString, storage);
-  if(storage !== null) {
+  if (storage !== null) {
     P.$BUTTON_PREV.removeClass('disabled');
     P.$BUTTON_NEXT.removeClass('disabled');
   }
@@ -245,5 +245,5 @@ drawLines();
 
 export const CalendarDrawer = {
   draw: draw,
-  setDrawMode:setDrawMode
+  setDrawMode: setDrawMode
 }

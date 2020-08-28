@@ -14,5 +14,5 @@ P.$SETTINGS_THEME.change(function() {
 
 
 export var Theme = {
-  set:set
+  set: set
 };

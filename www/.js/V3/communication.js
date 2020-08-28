@@ -7,16 +7,16 @@ import { Proxy as P } from './proxy.js'
 
 function createStringRequest(functionName, args) {
   let strArgs = []
-  for(let arg of args) {
+  for (let arg of args) {
     switch (typeof arg) {
       case 'string':
         strArgs.push('"' + arg + '"')
         break;
       case 'boolean':
-        strArgs.push( arg ? 'true' : 'false' );
+        strArgs.push(arg ? 'true' : 'false');
         break;
       case 'number':
-        strArgs.push( arg.toString() );
+        strArgs.push(arg.toString());
         break;
       default:
         console.error('request not supported');
@@ -28,7 +28,7 @@ function createStringRequest(functionName, args) {
 
 function request(functionName, args) {
   const req = createStringRequest(functionName, args);
-  return InappBrowser.eval( req );
+  return InappBrowser.eval(req);
 }
 
 function promiseTimeout(timeout) {
@@ -37,14 +37,14 @@ function promiseTimeout(timeout) {
   });
 }
 
-function waitUntil(functionName, args, expectedResult, frequency=P.com.DEFAULT_UPDATE_INTERVAL) {
+function waitUntil(functionName, args, expectedResult, frequency = P.com.DEFAULT_UPDATE_INTERVAL) {
   let interval;
   let i = 0;
 
   return new Promise(function(resolve, reject) {
 
     function then(res) {
-      if(res == expectedResult) {
+      if (res == expectedResult) {
         // console.log('waitUntil done after', i, 'steps');
         clearInterval(interval);
         resolve();
@@ -56,11 +56,11 @@ function waitUntil(functionName, args, expectedResult, frequency=P.com.DEFAULT_U
       // console.log('waitUntil', i);
       i++;
       request(functionName, args)
-      .then(then)
-      .catch(function(err) {
-        clearInterval(interval);
-        reject(err);
-      });
+        .then(then)
+        .catch(function(err) {
+          clearInterval(interval);
+          reject(err);
+        });
     }
 
     in_();
@@ -71,38 +71,38 @@ function waitUntil(functionName, args, expectedResult, frequency=P.com.DEFAULT_U
 function requestWeek(dateString) {
   dateString = Day.monday(dateString);
   return waitUntil('isWeekLoaded', [], true)
-  .then(function() {
-    return request('getCurrentDate', []);
-  })
-  .then(function(currentDate) {
-    if(currentDate !== dateString) { // must load week before
-      return request('clickButton', [dateString])
-      .then(function(res) {
-        if(!res) return Promise.reject( new Error(P.err.BUTTON_NOT_FOUND) );
-        else return promiseTimeout(P.com.TIMEOUT_AFTER_BUTTON_PRESS);
-      })
-      .then(function() {
-        return waitUntil('getCurrentDate', [], dateString);
-      })
-      .then(function() {
-        return waitUntil('isWeekLoaded', [], true);
-      })
-    }
-  })
-  .then(function() {
-    return request('parseThisWeek', [])
-    .then(function(res) {
-      console.log(res);
-      return res;
+    .then(function() {
+      return request('getCurrentDate', []);
     })
-  });
+    .then(function(currentDate) {
+      if (currentDate !== dateString) { // must load week before
+        return request('clickButton', [dateString])
+          .then(function(res) {
+            if (!res) return Promise.reject(new Error(P.err.BUTTON_NOT_FOUND));
+            else return promiseTimeout(P.com.TIMEOUT_AFTER_BUTTON_PRESS);
+          })
+          .then(function() {
+            return waitUntil('getCurrentDate', [], dateString);
+          })
+          .then(function() {
+            return waitUntil('isWeekLoaded', [], true);
+          })
+      }
+    })
+    .then(function() {
+      return request('parseThisWeek', [])
+        .then(function(res) {
+          console.log(res);
+          return res;
+        })
+    });
 
 }
 
 export var Communication = (function() { // communication with webview
 
   return {
-    requestWeek:requestWeek
+    requestWeek: requestWeek
   };
 
 })();

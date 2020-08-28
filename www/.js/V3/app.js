@@ -15,36 +15,37 @@ require('./events.js');
 function onDeviceReady() {
   Calendar.init();
   Storage.init()
-  .then(function() {
-    Theme.set( Storage.get(P.storage.THEME) );
-    return Filter.loadFilter( Storage.get(P.storage.GRADE) );
-  })
-  .then(function() {
-    Calendar.draw( Day.today() ); // if cached calendar can draw
-    return startInappBrowser();
-  })
-  .then(function() {
-    Calendar.update();
-  })
-  .catch(function(err) {
-    console.error('something bad happened !');
-    console.error(err);
-    Notification.show('majorError')
-  })
+    .then(function() {
+      Theme.set(Storage.get(P.storage.THEME));
+      return Filter.loadFilter(Storage.get(P.storage.GRADE));
+    })
+    .then(function() {
+      Calendar.draw(Day.today()); // if cached calendar can draw
+      return startInappBrowser();
+    })
+    .then(function() {
+      // Calendar.draw(Day.today()); // if cached calendar can draw
+      Calendar.update();
+    })
+    .catch(function(err) {
+      console.error('something bad happened !');
+      console.error(err);
+      Notification.show('majorError')
+    })
 }
 
 function startInappBrowser() {
   return new Promise(function(resolve, reject) {
     Network.whenOnline()
-    .then(function() {
-      return InappBrowser.load( Storage.get(P.storage.GRADE) )
-    })
-    .then(function() {
-      return InappBrowser.injectScript()
-    })
-    .then(function() {
-      resolve();
-    });
+      .then(function() {
+        return InappBrowser.load(Storage.get(P.storage.GRADE))
+      })
+      .then(function() {
+        return InappBrowser.injectScript()
+      })
+      .then(function() {
+        resolve();
+      });
   });
 }
 
@@ -64,13 +65,13 @@ let inst = null;
 
 function createInstance() { // Constructor like
   inst = {
-    init:init,
-    restartInappBrowser:restartInappBrowser
+    init: init,
+    restartInappBrowser: restartInappBrowser
   };
 }
 
 export function App() { // Singleton-like
-  if(inst === null) createInstance();
+  if (inst === null) createInstance();
 
   return inst;
 }

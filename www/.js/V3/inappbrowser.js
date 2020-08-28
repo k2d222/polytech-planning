@@ -8,25 +8,25 @@ let currentUrl = null;
 
 function executeScript(textScript) {
   return promiseExecute(P.com.FUNCTION_IS_CONNECTED)
-  .then(function(res) { // is InAppBrowser disconnected ?
-    if(!res && loaded) {
-      console.warn('InAppBrowser is disconnected, reloading');
-      Notification.show('restart');
-      return reload()
-      .then(function() {
-        Notification.hide('restart');
-      })
-    }
-  })
-  .then(function() {
-    return promiseExecute(textScript)
-  })
-  .then(function(res) {
-    if(typeof res === 'object' && res.packetified === true) {
-      return packetify();
-    }
-    else return res;
-  })
+    .then(function(res) { // is InAppBrowser disconnected ?
+      if (!res && loaded) {
+        console.warn('InAppBrowser is disconnected, reloading');
+        Notification.show('restart');
+        return reload()
+          .then(function() {
+            Notification.hide('restart');
+          })
+      }
+    })
+    .then(function() {
+      return promiseExecute(textScript)
+    })
+    .then(function(res) {
+      if (typeof res === 'object' && res.packetified === true) {
+        return packetify();
+      }
+      else return res;
+    })
 }
 
 function packetify() {
@@ -34,26 +34,26 @@ function packetify() {
 
   function getNextPacket() {
     return promiseExecute('getPacket()')
-    .then(function(res) {
-      if(res === false) return;
-      packets += res;
-      return getNextPacket();
-    });
+      .then(function(res) {
+        if (res === false) return;
+        packets += res;
+        return getNextPacket();
+      });
   }
 
   return getNextPacket()
-  .then(function() {
-    const obj = JSON.parse(packets);
-    console.log('resolved packet :', obj);
-    return obj;
-  });
+    .then(function() {
+      const obj = JSON.parse(packets);
+      console.log('resolved packet :', obj);
+      return obj;
+    });
 }
 
 function promiseExecute(textScript) {
   return new Promise(function(resolve, reject) {
-    if(!loaded) reject( new Error(P.err.WEBVIEW_NOT_LOADED) );
+    if (!loaded) reject(new Error(P.err.WEBVIEW_NOT_LOADED));
     else {
-      ref.executeScript({code: textScript}, function(result) {
+      ref.executeScript({ code: textScript }, function(result) {
         resolve(result[0]);
       });
       setTimeout(function() {
@@ -79,22 +79,23 @@ function reload() {
   // ref.close();
   // ref = null;
   return load(currentUrl)
-  .then(function() {
-    return injectScript();
-  })
-  .then(function() {
-    console.log('reload done.');
-  });
+    .then(function() {
+      return injectScript();
+    })
+    .then(function() {
+      console.log('reload done.');
+    });
 }
 
 function load(urlKey) {
   return new Promise(function(resolve, reject) {
     loaded = false;
-    if(!urlKey in P.url) reject(new Error('url key not recognized'));
+    if (!urlKey in P.url) reject(new Error('url key not recognized'));
     currentUrl = urlKey;
-    webviewReferences.push( cordova.InAppBrowser.open(P.url[urlKey], '_blank', P.INAPPBROWSER_SETTINGS) );
-    ref = webviewReferences[ webviewReferences.length-1 ];
+    webviewReferences.push(cordova.InAppBrowser.open(P.url[urlKey], '_blank', P.INAPPBROWSER_SETTINGS));
+    ref = webviewReferences[webviewReferences.length - 1];
     ref.addEventListener('loadstop', function() {
+      console.log('inappbrower loaded');
       loaded = true;
       resolve();
     });
@@ -104,27 +105,27 @@ function load(urlKey) {
 
 function injectScript() {
   var injection = fetchScript(P.script.INJECTION);
-  var jquery    = fetchScript(P.script.JQUERY);
+  var jquery = fetchScript(P.script.JQUERY);
 
   return jquery.then(function(jqueryText) {
     return promiseExecute(jqueryText);
   })
-  .then(function() {
-    return injection;
-  })
-  .then(function(injectionText) {
-    return promiseExecute(injectionText);
-  });
+    .then(function() {
+      return injection;
+    })
+    .then(function(injectionText) {
+      return promiseExecute(injectionText);
+    });
 }
 
-export var InappBrowser = (function () {
+export var InappBrowser = (function() {
 
   return {
-    reload:reload,
-    load:load,
-    injectScript:injectScript,
-    eval:executeScript,
-    getReference:function () {
+    reload: reload,
+    load: load,
+    injectScript: injectScript,
+    eval: executeScript,
+    getReference: function() {
       return ref;
     }
   }

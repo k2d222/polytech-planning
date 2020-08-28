@@ -1,6 +1,6 @@
 import { Notification } from './notification.js'
 
-export var Network = (function () {
+export var Network = (function() {
 
   var state = 'online';
   var interval;
@@ -16,20 +16,20 @@ export var Network = (function () {
     console.log('navigator now online');
     state = 'online';
     Notification.hide('offline');
-    Notification.show('online', {duration:1500});
+    Notification.show('online', { duration: 1500 });
   }
 
   window.addEventListener("offline", offline, false);
   window.addEventListener("online", online, false);
 
   interval = setInterval(function() {
-    if(navigator.connection.type === Connection.NONE && state === 'online') offline();
-    if(navigator.connection.type !== Connection.NONE && state === 'offline') online();
+    if (navigator.connection.type === Connection.NONE && state === 'online') offline();
+    if (navigator.connection.type !== Connection.NONE && state === 'offline') online();
   }, 1000);
 
   return {
-    whenOnline:function() {
-      if(state === 'online' || navigator.connection.type !== Connection.NONE) {
+    whenOnline: function() {
+      if (state === 'online' || navigator.connection.type !== Connection.NONE) {
         return Promise.resolve();
       }
       return new Promise(function(resolve, reject) {
@@ -37,7 +37,7 @@ export var Network = (function () {
         const interval = setInterval(function() {
           i++;
           // console.log('network wait for online state', i);
-          if(state === 'online' || navigator.connection.type !== Connection.NONE) {
+          if (state === 'online' || navigator.connection.type !== Connection.NONE) {
             clearInterval(interval);
             resolve();
             return;
