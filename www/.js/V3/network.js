@@ -3,7 +3,6 @@ import { Notification } from './notification.js'
 export var Network = (function() {
 
   var state = 'online';
-  var interval;
 
   function offline() {
     console.log('navigator now offline');
@@ -22,7 +21,7 @@ export var Network = (function() {
   window.addEventListener("offline", offline, false);
   window.addEventListener("online", online, false);
 
-  interval = setInterval(function() {
+  setInterval(function() {
     if (navigator.connection.type === Connection.NONE && state === 'online') offline();
     if (navigator.connection.type !== Connection.NONE && state === 'offline') online();
   }, 1000);
@@ -32,11 +31,8 @@ export var Network = (function() {
       if (state === 'online' || navigator.connection.type !== Connection.NONE) {
         return Promise.resolve();
       }
-      return new Promise(function(resolve, reject) {
-        let i = 0;
+      return new Promise(function(resolve) {
         const interval = setInterval(function() {
-          i++;
-          // console.log('network wait for online state', i);
           if (state === 'online' || navigator.connection.type !== Connection.NONE) {
             clearInterval(interval);
             resolve();

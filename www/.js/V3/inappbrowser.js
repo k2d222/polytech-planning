@@ -6,47 +6,36 @@ var ref;
 var webviewReferences = []; //cordova's inappbrowser has weird behaviour when it comes to closing / opening webviews...
 let currentUrl = null;
 
-function executeScript(textScript) {
-  return promiseExecute(P.com.FUNCTION_IS_CONNECTED)
-    .then(function(res) { // is InAppBrowser disconnected ?
-      if (!res && loaded) {
-        console.warn('InAppBrowser is disconnected, reloading');
-        Notification.show('restart');
-        return reload()
-          .then(function() {
-            Notification.hide('restart');
-          })
-      }
-    })
-    .then(function() {
-      return promiseExecute(textScript)
-    })
-    .then(function(res) {
-      if (typeof res === 'object' && res.packetified === true) {
-        return packetify();
-      }
-      else return res;
-    })
-}
+async function executeScript(textScript) {
+  let connected = await promiseExecute(P.com.FUNCTION_IS_CONNECTED);
 
-function packetify() {
-  let packets = '';
-
-  function getNextPacket() {
-    return promiseExecute('getPacket()')
-      .then(function(res) {
-        if (res === false) return;
-        packets += res;
-        return getNextPacket();
-      });
+  if (!connected && loaded) {
+    console.warn('InAppBrowser is disconnected, reloading');
+    Notification.show('restart'); // TODO rename to reload
+    await reload();
+    Notification.hide('restart');
   }
 
-  return getNextPacket()
-    .then(function() {
-      const obj = JSON.parse(packets);
-      console.log('resolved packet :', obj);
-      return obj;
-    });
+  let res = await promiseExecute(textScript);
+
+  if (typeof res === 'object' && res.packetified === true) {
+    return unpack();
+  }
+  else return res;
+}
+
+async function unpack() {
+  let packets = '';
+  let packet;
+
+  do {
+    packet = await promiseExecute('getPacket()');
+    packets += packet;
+  } while (packet);
+
+  const obj = JSON.parse(packets);
+  console.log('resolved packet :', obj);
+  return obj;
 }
 
 function promiseExecute(textScript) {
@@ -74,17 +63,13 @@ function fetchScript(url) {
   });
 }
 
-function reload() {
+async function reload() {
   console.log('reloading InAppBrowser');
   // ref.close();
   // ref = null;
-  return load(currentUrl)
-    .then(function() {
-      return injectScript();
-    })
-    .then(function() {
-      console.log('reload done.');
-    });
+  await load(currentUrl);
+  await injectScript();
+  console.log('reload done.');
 }
 
 function load(urlKey) {
@@ -103,19 +88,14 @@ function load(urlKey) {
   });
 }
 
-function injectScript() {
+async function injectScript() {
   var injection = fetchScript(P.script.INJECTION);
   var jquery = fetchScript(P.script.JQUERY);
 
-  return jquery.then(function(jqueryText) {
-    return promiseExecute(jqueryText);
-  })
-    .then(function() {
-      return injection;
-    })
-    .then(function(injectionText) {
-      return promiseExecute(injectionText);
-    });
+  const jqueryText = await jquery;
+  await promiseExecute(jqueryText);
+  const injectionText = await injection;
+  await promiseExecute(injectionText);
 }
 
 export var InappBrowser = (function() {

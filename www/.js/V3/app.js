@@ -11,43 +11,28 @@ import { Theme } from './theme.js'
 require('./events.js');
 
 
-function onDeviceReady() {
-  Calendar.init();
-  Storage.init()
-    .then(function() {
-      Theme.set(Storage.get(P.storage.THEME));
-      return Filter.loadFilter(Storage.get(P.storage.GRADE));
-    })
-    .then(function() {
-      Calendar.draw(Day.today()); // if cached calendar can draw
-      return startInappBrowser();
-    })
-    .then(function() {
-      // Calendar.draw(Day.today()); // if cached calendar can draw
-      Calendar.update();
-    })
-    .catch(function(err) {
-      console.error('something bad happened !');
-      console.error(err);
-      Notification.show('majorError')
-    })
+async function onDeviceReady() {
+  try {
+    Calendar.init();
+    await Storage.init();
+    Theme.set(Storage.get(P.storage.THEME));
+    await Filter.loadFilter(Storage.get(P.storage.GRADE));
+    Calendar.draw(Day.today()); // if cached calendar can draw
+    await startInappBrowser();
+    await Calendar.update();
+  }
+  catch (err) {
+    console.error('something bad happened !');
+    console.error(err);
+    Notification.show('majorError')
+  }
 }
 
-function startInappBrowser() {
-  return new Promise(function(resolve, reject) {
-    Network.whenOnline()
-      .then(function() {
-        return InappBrowser.load(Storage.get(P.storage.GRADE))
-      })
-      .then(function() {
-        return InappBrowser.injectScript()
-      })
-      .then(function() {
-        resolve();
-      });
-  });
+async function startInappBrowser() {
+  await Network.whenOnline()
+  await InappBrowser.load(Storage.get(P.storage.GRADE))
+  await InappBrowser.injectScript()
 }
-
 
 function init() {
   document.addEventListener('deviceready', onDeviceReady, false);
@@ -56,7 +41,6 @@ function init() {
 function restartInappBrowser() {
   return startInappBrowser();
 }
-
 
 // ---------------------
 

@@ -29,20 +29,18 @@ function request(functionName, args) {
 }
 
 function promiseTimeout(timeout) {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function(resolve) {
     setTimeout(resolve, timeout);
   });
 }
 
 function waitUntil(functionName, args, expectedResult, frequency = P.com.DEFAULT_UPDATE_INTERVAL) {
   let interval;
-  let i = 0;
 
   return new Promise(function(resolve, reject) {
 
     function then(res) {
       if (res == expectedResult) {
-        // console.log('waitUntil done after', i, 'steps');
         clearInterval(interval);
         resolve();
       }
@@ -50,8 +48,6 @@ function waitUntil(functionName, args, expectedResult, frequency = P.com.DEFAULT
     }
 
     function in_() {
-      // console.log('waitUntil', i);
-      i++;
       request(functionName, args)
         .then(then)
         .catch(function(err) {
@@ -65,35 +61,22 @@ function waitUntil(functionName, args, expectedResult, frequency = P.com.DEFAULT
   });
 }
 
-function requestWeek(dateString) {
+async function requestWeek(dateString) {
   dateString = Day.monday(dateString);
-  return waitUntil('isWeekLoaded', [], true)
-    .then(function() {
-      return request('getCurrentDate', []);
-    })
-    .then(function(currentDate) {
-      if (currentDate !== dateString) { // must load week before
-        return request('clickButton', [dateString])
-          .then(function(res) {
-            if (!res) return Promise.reject(new Error(P.err.BUTTON_NOT_FOUND));
-            else return promiseTimeout(P.com.TIMEOUT_AFTER_BUTTON_PRESS);
-          })
-          .then(function() {
-            return waitUntil('getCurrentDate', [], dateString);
-          })
-          .then(function() {
-            return waitUntil('isWeekLoaded', [], true);
-          })
-      }
-    })
-    .then(function() {
-      return request('parseThisWeek', [])
-        .then(function(res) {
-          console.log(res);
-          return res;
-        })
-    });
+  await waitUntil('isWeekLoaded', [], true)
+  let currentDate = await request('getCurrentDate', []);
 
+  if (currentDate !== dateString) { // must load week before
+    let res = await request('clickButton', [dateString])
+    if (!res) throw new Error(P.err.BUTTON_NOT_FOUND);
+    else await promiseTimeout(P.com.TIMEOUT_AFTER_BUTTON_PRESS);
+    await waitUntil('getCurrentDate', [], dateString);
+    await waitUntil('isWeekLoaded', [], true);
+  }
+
+  let res = await request('parseThisWeek', [])
+  console.log(res);
+  return res;
 }
 
 export var Communication = (function() { // communication with webview
