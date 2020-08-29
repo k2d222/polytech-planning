@@ -14,7 +14,7 @@
           "key":"tp",
           "display":"Groupe de TP Tronc Commun",
           "variable":["a", "b"],
-          "blacklist":["ET3 Gr{td}[a-z]"],
+          "blacklist":["ET3 Gr{td}[ab]"],
           "whitelist":["ET3 Gr{td}{tp}"]
         }
       ]

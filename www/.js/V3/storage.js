@@ -1,9 +1,8 @@
 import { Settings } from './settings.js';
-import { Notification } from './notification.js';
 import { Proxy as P } from './proxy.js'
 
 function init() {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function(resolve) {
     if (storage.has(P.storage.VERSION) && storage.get(P.storage.VERSION) !== P.STORAGE_VERSION) {
       alert('L\'appli à été mise à jour !')
       storage.clear()

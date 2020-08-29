@@ -1,5 +1,4 @@
 import { Storage } from './storage.js';
-import { Proxy as P } from './proxy.js'
 
 var loadedFilter;
 var filterName = '';
@@ -49,14 +48,11 @@ function filterElement(el, filter = loadedFilter) { // returns bool blacklisted 
   return to_return;
 }
 
-function loadFilter(name) {
+async function loadFilter(name) {
   if (name === filterName && name !== '') return Promise.resolve(loadedFilter);
   filterName = name;
-  return fetchJSON('filters/' + filterName + '.json')
-    .then(function(filter) {
-      loadedFilter = filter;
-      return filter;
-    })
+  loadedFilter = await fetchJSON('filters/' + filterName + '.json');
+  return loadedFilter;
 }
 
 export var Filter = (function() {

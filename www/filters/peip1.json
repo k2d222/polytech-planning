@@ -22,24 +22,21 @@
     {
       "key":"ang",
       "display":"Groupe d'anglais",
-      "variable":["a", "b", "c", "d", "e", "f"],
-      "blacklist":["PEIP1 Ang-[a-z]"],
+      "variable":["a", "b", "c", "d", "e", "f", "g"],
+      "blacklist":["PEIP1 Ang-[a-g]"],
       "whitelist":["PEIP1 Ang-{ang}"]
     },
     {
       "key":"opt",
       "display":"Option",
       "variable":{
-        "Forces fondamentales":"FF",
-        "Initiation aux materiaux":"MTX",
-        "Robot":"Robot",
-        "Acoustique musicale":"AM",
-        "Materiaux pour l'energie":"MATENERGIE",
         "IOT et objets connectés":"IOT",
-        "Web":"Web",
-        "Un labo dans la poche":"Un labo dans la poche"
+        "Logic Problem Solving":"Logic Problem Solving",
+        "Initiation aux materiaux":"MTX",
+        "Robots":"Robot",
+        "Web":"Web"
       },
-      "blacklist":["PEIP1 - (FF|MTX|Robot|AM|MATENERGIE|IOT|Web|Un labo dans la poche)"],
+      "blacklist":["PEIP1 - (IOT|Logic Problem Solving|MTX|Robot|Web)"],
       "whitelist":["PEIP1 - {opt}"]
     }
   ]

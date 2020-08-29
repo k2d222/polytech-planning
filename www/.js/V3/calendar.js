@@ -3,8 +3,6 @@ import { Communication } from './communication.js';
 import { Notification } from './notification.js'
 import { Day } from './day.js';
 import { Network } from './network.js';
-import { InappBrowser } from './inappbrowser.js';
-import { Filter } from './filter.js';
 import { CalendarDrawer } from './calendarDrawer.js';
 import { Proxy as P } from './proxy.js'
 
@@ -82,7 +80,7 @@ function finishPendingRequest() {
 }
 
 
-function handlePendingRequest() {
+async function handlePendingRequest() {
   if (!pendingRequest || !('dateString' in pendingRequest)) return; // no pending request
 
   if (pendingRequest.dateString in storage) {
@@ -97,12 +95,15 @@ function handlePendingRequest() {
 
   else {
     waitForData = true;
-    Network.whenOnline()
-      .then(function() {
-        return Communication.requestWeek(pendingRequest.dateString)
-      })
-      .then(handleReceivedWeek)
-      .catch(handleError)
+    let week;
+    await Network.whenOnline();
+    try {
+      week = await Communication.requestWeek(pendingRequest.dateString);
+    } catch (err) {
+      handleError(err);
+      return;
+    }
+    await handleReceivedWeek(week);
   }
 }
 
@@ -134,7 +135,7 @@ function draw(dateString) {
       resolve();
     }
     else {
-      addPendingRequest({ dateString: dateString, resolve: resolve, reject: reject })
+      addPendingRequest({ dateString, resolve, reject })
       if (dateString in cache) {
         CalendarDrawer.draw(dateString, cache);
       }

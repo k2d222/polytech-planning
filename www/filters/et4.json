@@ -11,6 +11,13 @@
       "whitelist":["ET4 ANG{ang}"]
     },
     {
+      "key":"vlt",
+      "display":"Groupe de projet Voltaire",
+      "variable":["A", "B", "C", "D", "E", "F"],
+      "blacklist":["ET4 Voltaire gr[A-F]"],
+      "whitelist":["ET4 Voltaire{vlt}"]
+    },
+    {
       "key":"spe",
       "display":"Spécialité",
       "variable":{
