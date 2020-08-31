@@ -1,7 +1,7 @@
 export const Proxy = {
 
   // APP_VERSION: 10060,
-  STORAGE_VERSION: '7',
+  STORAGE_VERSION: '8',
 
   $CALENDAR: $('#calendar'),
   $CALENDAR_CONTENT: $('#calendar .content'),
@@ -22,7 +22,6 @@ export const Proxy = {
   $BUTTON_PREV: $('.veille'),
   $BUTTON_NEXT: $('.lendemain'),
   $BUTTON_SETTINGS: $('button.settings'),
-
 
   $SETTINGS_CONTAINER: $('#settings'),
   $SETTINGS_FILTER: $('#settings .filters'),
@@ -56,7 +55,8 @@ export const Proxy = {
 
   err: {
     BUTTON_NOT_FOUND: 'button not found',
-    WEBVIEW_NOT_LOADED: 'webview not loaded'
+    WEBVIEW_NOT_LOADED: 'webview not loaded',
+    REQUEST_CANCELLED: 'request cancelled'
   },
 
   html: {
@@ -93,6 +93,10 @@ export const Proxy = {
     TIMEOUT_AFTER_BUTTON_PRESS: 200,
     DEFAULT_UPDATE_INTERVAL: 200,
     FUNCTION_IS_CONNECTED: 'isConnected()'
+  },
+
+  theme: {
+    DEFAULT: 'default'
   },
 
   url: {

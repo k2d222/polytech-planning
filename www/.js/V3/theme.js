@@ -2,7 +2,12 @@ import { Proxy as P } from './proxy.js'
 import { Storage } from './storage.js'
 
 function set(themeName) {
-  P.$THEME_STYLESHEET.attr('href', P.dir.THEMES + themeName + '.css');
+  if (themeName) {
+    P.$THEME_STYLESHEET.attr('href', P.dir.THEMES + themeName + '.css');
+  }
+  else {
+    P.$THEME_STYLESHEET.attr('href', P.dir.THEMES + P.theme.DEFAULT + '.css');
+  }
 }
 
 P.$SETTINGS_THEME.change(function() {

@@ -69,7 +69,7 @@ function addPendingRequest(request) {
 }
 
 function cancelPendingRequest() {
-  if ('reject' in pendingRequest) pendingRequest.reject(new Error('request cancelled'));
+  if ('reject' in pendingRequest) pendingRequest.reject(new Error(P.err.REQUEST_CANCELLED));
   finishPendingRequest();
 }
 
@@ -109,21 +109,28 @@ async function handlePendingRequest() {
 
 function handleError(err) {
   waitForData = false;
-  console.error(err);
   if (err.message === P.err.BUTTON_NOT_FOUND) {
+    console.error(err);
     Notification.show('dateError', { duration: 3000 });
     cancelPendingRequest();
   }
-  else if (err.message !== P.err.WEBVIEW_NOT_LOADED) {
+  else if (err.message === P.err.WEBVIEW_NOT_LOADED) {
+    console.error(err);
     Notification.show('calendarError', { duration: 3000 });
   }
-  // TODO
-  // WEBVIEW_NOT_LOADED is not considered as an error since it is raised
-  // on startup when calling Calendar.Draw(today) before webview loaded, to
-  // display cache.
-  // else {
-  //   Notification.show('majorError');
-  // }
+  else if (err.message === P.err.REQUEST_CANCELLED) {
+    console.warn('A request was cancelled');
+  }
+  else {
+    console.error(err);
+    Notification.show('majorError');
+  }
+}
+
+function drawFromCache(dateString) {
+  if (dateString in cache) {
+    CalendarDrawer.draw(dateString, cache);
+  }
 }
 
 function draw(dateString) {
@@ -140,11 +147,12 @@ function draw(dateString) {
         CalendarDrawer.draw(dateString, cache);
       }
       else {
-        CalendarDrawer.draw(dateString);
+        CalendarDrawer.draw(dateString); // actually draws nothing
         updateNavigationButtons(dateString);
       }
     }
-  });
+  })
+    .catch(handleError); // pending request was probably cancelled
 }
 
 // -------------------------------------
@@ -160,8 +168,9 @@ function init() {
 export const Calendar = {
   init: init,
   draw: draw,
+  drawFromCache: drawFromCache,
   getCurrentDay: function() {
     return currentDay;
   },
-  update: handlePendingRequest
+  // update: handlePendingRequest
 }

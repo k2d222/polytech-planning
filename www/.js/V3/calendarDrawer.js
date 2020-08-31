@@ -240,7 +240,6 @@ function draw(dateString, storage = null) {
   drawDate(dateString);
 }
 
-
 drawLines();
 
 export const CalendarDrawer = {
