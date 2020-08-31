@@ -63,7 +63,7 @@ function waitUntil(functionName, args, expectedResult, frequency = P.com.DEFAULT
 
 async function requestWeek(dateString) {
   dateString = Day.monday(dateString);
-  await waitUntil('isWeekLoaded', [], true)
+  await waitUntil('isWeekLoaded', [], true);
   let currentDate = await request('getCurrentDate', []);
 
   if (currentDate !== dateString) { // must load week before
@@ -75,7 +75,7 @@ async function requestWeek(dateString) {
   }
 
   let res = await request('parseThisWeek', [])
-  console.log(res);
+  console.log('received week', res);
   return res;
 }
 

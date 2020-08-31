@@ -17,9 +17,9 @@ async function onDeviceReady() {
     await Storage.init();
     Theme.set(Storage.get(P.storage.THEME));
     await Filter.loadFilter(Storage.get(P.storage.GRADE));
-    Calendar.draw(Day.today()); // if cached calendar can draw
+    Calendar.drawFromCache(Day.today());
     await startInappBrowser();
-    await Calendar.update();
+    await Calendar.draw(Day.today());
   }
   catch (err) {
     console.error('something bad happened !');

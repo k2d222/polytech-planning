@@ -37,19 +37,19 @@ function nearestValue(val, array) {
   })
 }
 
-function getCurrentDate(date) {
+function datestringFromButton($btn) {
   const months = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
-
-  let d = new Date();
-  let $btn = $('#x-auto-25 .x-btn-pressed button');
   let text = $btn.html().split(' ');
   const day = parseInt(text[0]);
   const month = months.indexOf(text[1]);
   const year = parseInt(text[2]);
-  d.setFullYear(year);
-  d.setMonth(month);
-  d.setDate(day);
+  let d = new Date(year, month, day);
   return d.toDateString();
+}
+
+function getCurrentDate(date) {
+  let $btn = $('#x-auto-25 .x-btn-pressed button');
+  return datestringFromButton($btn);
 }
 
 function minifyData(week) {
@@ -136,15 +136,10 @@ function getPacket() {
 }
 
 function clickButton(dateString) {
-  const months = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
   for (let btn of $('#x-auto-25 button')) {
     let $btn = $(btn);
-    let text = $btn.html().split(' ');
-    const day = parseInt(text[0]);
-    const month = months.indexOf(text[1]);
-    const year = parseInt(text[2]);
-    let d = new Date(year, month, day);
-    if (d.toDateString() === dateString) {
+    let btnDatestring = datestringFromButton($btn);
+    if (btnDatestring === dateString) {
       $btn.click();
       return true;
     }
