@@ -87,7 +87,9 @@ function parseThisWeek() {
       blacklisted: false
     }
     classe.title = HTMLDecode($data.find('b').parent().html() + "");
-    if (classe.title === undefined) classe.title = "inconnu !";
+    if (classe.title === undefined || classe.title === 'undefined') {
+      classe.title = null; // vacances / jours feriés
+    }
     else classe.title = classe.title.replace(/<b [^>]+>/g, '<b>');
     classe.background = $data.children('table').css('background-color');
     classe.start.time = range($data.position().top, 0, gridHeight, 8, 20);

@@ -152,6 +152,7 @@ svg {
           height: 100%;
         }
         input[type="checkbox"] {
+          border-radius: 5px;
           -webkit-appearance: none;
           height: 2em;
           width: 2em;
@@ -169,14 +170,6 @@ svg {
   }
 
   .disabled {
-    & input[type="checkbox"] {
-      &:checked {
-      }
-    }
-    &, label {
-    }
-    &, select {
-    }
     &, * {
       pointer-events:none;
     }
@@ -198,6 +191,7 @@ svg {
       color: black;
       background: transparent;
       width: 100%;
+      text-decoration: underline;
     }
   }
 }

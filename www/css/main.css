@@ -138,6 +138,7 @@ svg {
   height: 100%;
 }
 #settings .wrapper .section .element input[type="checkbox"] {
+  border-radius: 5px;
   -webkit-appearance: none;
   height: 2em;
   width: 2em;
@@ -169,6 +170,7 @@ svg {
   color: black;
   background: transparent;
   width: 100%;
+  text-decoration: underline;
 }
 #about {
   position: fixed;

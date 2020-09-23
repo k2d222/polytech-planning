@@ -97,6 +97,9 @@ svg {
     &.save {
       background: @settings-button-save-back;
     }
+    &.about {
+      color: @settings-button-about-color;
+    }
   }
 }
 
@@ -115,6 +118,11 @@ svg {
         background: @calendar-course-disabled-back;
         border: 1px solid @calendar-course-disabled-border;
       }
+      &.unavailable {
+        color: @calendar-course-unavailable-color;
+        background: @calendar-course-unavailable-back !important;
+        border: 1px solid @calendar-course-unavailable-border;
+      }
     }
   }
 
@@ -131,6 +139,10 @@ svg {
     .day {
       .classe {
         border: 1px solid @calendar-landscape-course-border;
+
+        &.unavailable {
+          border: 1px solid @calendar-course-unavailable-border;
+        }
       }
     }
   }
