@@ -1,24 +1,25 @@
 import { Settings } from './settings.js';
 import { Proxy as P } from './proxy.js'
 
-function init() {
-  return new Promise(function(resolve) {
-    if (storage.has(P.storage.VERSION) && storage.get(P.storage.VERSION) !== P.STORAGE_VERSION) {
-      alert('L\'appli à été mise à jour !');
-      storage.clear();
-    }
+async function init() {
 
-    if (!storage.has(P.storage.VERSION)) {
-      storage.clear()
-      Settings.show({ cancelDisabled: true })
-        .then(function() {
-          storage.set(P.storage.VERSION, P.STORAGE_VERSION);
-          storage.set('root', true); // TODO
-          resolve();
-        });
-    }
-    else resolve();
-  });
+  if (storage.has(P.storage.VERSION) && storage.get(P.storage.VERSION) !== P.STORAGE_VERSION) {
+    alert('L\'appli à été mise à jour !');
+    storage.clear();
+  }
+
+  // show welcome dialog (disabled feature for now...)
+  if (!storage.has(P.storage.ACKNOWLEDGED)) {
+    // P.$ABOUT_CONTAINER.removeClass('hidden');
+    storage.set(P.storage.ACKNOWLEDGED, true);
+  }
+
+  if (!storage.has(P.storage.VERSION)) {
+    storage.clear()
+    await Settings.show({ cancelDisabled: true });
+    storage.set(P.storage.VERSION, P.STORAGE_VERSION);
+    storage.set('root', true); // TODO
+  }
 }
 
 var storage = {

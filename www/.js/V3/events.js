@@ -74,3 +74,11 @@ P.$COURSE_CONTAINER.click(function(evt) {
     P.$GIF_CONTAINER.show();
   });
 })
+
+P.$BUTTON_ABOUT.click(function() {
+  P.$ABOUT_CONTAINER.removeClass('hidden');
+})
+
+P.$BUTTON_ABOUT_CLOSE.click(function() {
+  P.$ABOUT_CONTAINER.addClass('hidden');
+})

@@ -88,6 +88,7 @@ svg {
   height: 100vh;
   box-sizing: border-box;
   text-align: left;
+  overflow: auto;
 }
 #settings.hidden {
   display: none;
@@ -162,6 +163,36 @@ svg {
 }
 #settings button.save {
   float: right;
+}
+#settings button.about {
+  text-align: left;
+  color: black;
+  background: transparent;
+  width: 100%;
+}
+#about {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
+  text-align: left;
+  padding: 1em;
+  background: white;
+  overflow: auto;
+}
+#about.hidden {
+  display: none;
+}
+#about button {
+  color: white;
+  outline: none;
+  border: none;
+  background: green;
+  padding: .5em;
+  width: 100%;
 }
 #calendar {
   position: fixed;

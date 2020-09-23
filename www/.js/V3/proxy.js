@@ -22,6 +22,8 @@ export const Proxy = {
   $BUTTON_PREV: $('.veille'),
   $BUTTON_NEXT: $('.lendemain'),
   $BUTTON_SETTINGS: $('button.settings'),
+  $BUTTON_ABOUT: $('button.about'),
+  $BUTTON_ABOUT_CLOSE: $('#about button'),
 
   $SETTINGS_CONTAINER: $('#settings'),
   $SETTINGS_FILTER: $('#settings .filters'),
@@ -31,6 +33,8 @@ export const Proxy = {
   $SETTINGS_RESET: $('#settings .reset'),
   $SETTINGS_THEME: $('#settings .theme'),
   $SETTINGS_GRADE: $('.classeDropDown'),
+
+  $ABOUT_CONTAINER: $('#about'),
 
   $THEME_STYLESHEET: $('#themeStylesheet'),
 
@@ -73,7 +77,8 @@ export const Proxy = {
     GRADE: 'classe',
     SAVED_DAYS: 'daysCache',
     THEME: 'theme',
-    VERSION: 'version'
+    VERSION: 'version',
+    ACKNOWLEDGED: 'ack'
   },
 
   day: {
