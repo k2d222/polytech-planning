@@ -50,6 +50,8 @@ export const Proxy = {
   START_HOUR: 8,
   END_HOUR: 20,
 
+  TODAY_MAX_HOUR: 21,
+
   $: {
     COURSE: '.classe',
     LANDSCAPE_DAY: '#heures .day',
