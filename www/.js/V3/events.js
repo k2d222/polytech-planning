@@ -51,7 +51,10 @@ P.$BUTTON_NEXT.click(function() {
 
 P.$DATE_CONTAINER.click(function() {
   P.$DATE_PICKER_CONTAINER.removeClass('hidden');
-  DatePicker.create(Calendar.getCurrentDay());
+  let day = Calendar.getCurrentDay();
+  if (day === null) // solves bug when not yet loaded
+    day = Day.today();
+  DatePicker.create(day);
 })
 
 // gifs rigolos

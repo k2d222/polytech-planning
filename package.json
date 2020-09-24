@@ -1,7 +1,7 @@
 {
     "name": "fr.thissma.adePolytech",
     "displayName": "polytech edt",
-    "version": "1.0.0",
+    "version": "1.2.2",
     "description": "Emploi du temps de Polytech Paris-Sud (application non-officielle)",
     "main": "index.js",
     "scripts": {
