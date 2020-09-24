@@ -51,7 +51,10 @@ P.$BUTTON_NEXT.click(function() {
 
 P.$DATE_CONTAINER.click(function() {
   P.$DATE_PICKER_CONTAINER.removeClass('hidden');
-  DatePicker.create(Calendar.getCurrentDay());
+  let day = Calendar.getCurrentDay();
+  if (day === null) // solves bug when not yet loaded
+    day = Day.today();
+  DatePicker.create(day);
 })
 
 // gifs rigolos
@@ -73,4 +76,12 @@ P.$COURSE_CONTAINER.click(function(evt) {
     P.$GIF_IMG.attr('src', data);
     P.$GIF_CONTAINER.show();
   });
+})
+
+P.$BUTTON_ABOUT.click(function() {
+  P.$ABOUT_CONTAINER.removeClass('hidden');
+})
+
+P.$BUTTON_ABOUT_CLOSE.click(function() {
+  P.$ABOUT_CONTAINER.addClass('hidden');
 })

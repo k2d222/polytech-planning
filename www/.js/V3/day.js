@@ -1,4 +1,4 @@
-
+import { Proxy as P } from './proxy.js'
 
 var date = new Date();
 addDay(date, 0); // sunday becomes monday
@@ -24,6 +24,8 @@ function add(count) {
 function today() {
   date = new Date();
   addDay(date, 0); // dimanche devient lundi
+  if (date.getHours() >= P.TODAY_MAX_HOUR) // si passé TODAY_MAX_HOUR, passe a lendemain matin
+    date.setHours(date.getHours() + 24 - P.TODAY_MAX_HOUR + P.START_HOUR);
   return date.toDateString();
 }
 

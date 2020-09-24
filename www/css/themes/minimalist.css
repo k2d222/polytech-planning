@@ -18,7 +18,7 @@ svg {
   color: black;
 }
 #datePicker .dates .dayNumber.selected {
-  background: #03DAC5;
+  background: #4a7bea;
   color: white;
 }
 #datePicker .dates .dayNumber.today {
@@ -51,8 +51,8 @@ svg {
   border: 1px solid gray;
 }
 #settings .wrapper .section .element input[type="checkbox"]:checked {
-  background-color: #03DAC5;
-  border-color: #03DAC5;
+  background-color: #4a7bea;
+  border-color: #4a7bea;
 }
 #settings .wrapper .section .element.disabled input[type="checkbox"] {
   border-color: transparent;
@@ -76,6 +76,9 @@ svg {
 #settings button.save {
   background: green;
 }
+#settings button.about {
+  color: #4a7bea;
+}
 #calendar {
   background: white;
   color: white;
@@ -92,11 +95,19 @@ svg {
   background: repeating-linear-gradient(45deg, white, white 1em, #e8e8e8 1em, #e8e8e8 2em);
   border: 1px solid #e8e8e8;
 }
+#calendar #heures .classe.unavailable {
+  color: red;
+  background: repeating-linear-gradient(45deg, transparent, transparent 10px, red 11px, red 11px) !important;
+  border: 1px solid red;
+}
 #calendar.landscape #landscapeCurrentDay {
   background: rgba(0, 0, 255, 0.1);
 }
 #calendar.landscape #heures .day .classe {
   border: 1px solid black;
+}
+#calendar.landscape #heures .day .classe.unavailable {
+  border: 1px solid red;
 }
 .notification {
   color: white;

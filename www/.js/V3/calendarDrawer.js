@@ -28,8 +28,15 @@ function expandData(mini) {
       start: { hour: mini[i][0][0], minute: mini[i][0][1] },
       end: { hour: mini[i][1][0], minute: mini[i][1][1] },
       title: mini[i][2], background: mini[i][3],
+      unavailable: false
     };
-    expanded[i].blacklisted = Filter.filterElement(expanded[i]);
+    if (expanded[i].title === null) {
+      expanded[i].title = 'FERMÉ';
+      expanded[i].unavailable = true;
+    }
+    else {
+      expanded[i].blacklisted = Filter.filterElement(expanded[i]);
+    }
   }
   expanded.sort((a, b) => { return !b.blacklisted ? 1 : -1 }); // not blacklisted comes first
   return expanded;
@@ -144,7 +151,7 @@ function drawDate(dateString) {
   P.$DATE.html(str);
 }
 
-function drawCourses(day) {
+function drawCoursesPortrait(day) {
   let matrix = createMatrix();
   let maxColumn = 3;
   for (let course of day) {
@@ -159,6 +166,7 @@ function drawCourses(day) {
     maxColumn = Math.max(pos.x2 + 2, maxColumn);
     if (course.blacklisted) $course.addClass('disabled');
     else $course.css('background', course.background);
+    if (course.unavailable) $course.addClass('unavailable');
 
     let $textWrapper = $(P.html.COURSE_CONTENT_WRAPPER);
     let $textContent = $(P.html.COURSE_CONTENT);
@@ -182,6 +190,7 @@ function drawCoursesLandscape(day, dayNumber) {
   for (let course of day) {
     if (course.blacklisted) continue;
     let $course = $(P.html.COURSE);
+    if (course.unavailable) $course.addClass('unavailable');
 
     const startRow = (course.start.hour - P.START_HOUR) * 4 + course.start.minute / 15;
     const endRow = (course.end.hour - P.START_HOUR) * 4 + course.end.minute / 15;
@@ -222,7 +231,7 @@ function drawLandscape(dateString, storage) {
 function drawPortrait(dateString, storage) {
   if (storage !== null) {
     let day = expandData(storage[dateString]);
-    drawCourses(day);
+    drawCoursesPortrait(day);
   }
 }
 

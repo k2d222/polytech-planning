@@ -102,6 +102,7 @@ svg {
   height: 100vh;
   box-sizing: border-box;
   text-align: left;
+  overflow:auto;
 
   &.hidden {
     display: none;
@@ -149,8 +150,10 @@ svg {
           outline: none;
           width:100%;
           height: 100%;
+          border-radius: 5px;
         }
         input[type="checkbox"] {
+          border-radius: 5px;
           -webkit-appearance: none;
           height: 2em;
           width: 2em;
@@ -168,14 +171,6 @@ svg {
   }
 
   .disabled {
-    & input[type="checkbox"] {
-      &:checked {
-      }
-    }
-    &, label {
-    }
-    &, select {
-    }
     &, * {
       pointer-events:none;
     }
@@ -191,10 +186,42 @@ svg {
     &.save {
       float: right;
     }
+
+    &.about {
+      text-align: left;
+      color: black;
+      background: transparent;
+      width: 100%;
+      text-decoration: underline;
+    }
   }
 }
 
+#about {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
+  text-align: left;
+  padding: 1em;
+  background: white;
+  overflow: auto;
 
+  &.hidden {
+    display: none;
+  }
+  button {
+    color: white;
+    outline: none;
+    border: none;
+    background: green;
+    padding: .5em;
+    width: 100%;
+  }
+}
 
 @nav-height:3.5em;
 
