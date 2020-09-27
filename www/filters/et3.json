@@ -30,8 +30,8 @@
       "key":"com",
       "display":"Groupe de communication",
       "variable":["1", "2", "3", "4", "5", "6", "7", "8"],
-      "blacklist":["ET3 COM\\d"],
-      "whitelist":["ET3 COM{com}"]
+      "blacklist":["ET3 COM \\d"],
+      "whitelist":["ET3 COM {com}"]
     },
     {
       "key":"eco",
