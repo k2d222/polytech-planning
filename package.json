@@ -1,7 +1,7 @@
 {
     "name": "fr.thissma.adePolytech",
     "displayName": "polytech edt",
-    "version": "1.2.30",
+    "version": "1.2.31",
     "description": "Emploi du temps de Polytech Paris-Saclay (application non-officielle)",
     "main": "index.js",
     "scripts": {
