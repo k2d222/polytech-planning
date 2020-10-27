@@ -30,7 +30,7 @@ async function unpack() {
 
   do {
     packet = await promiseExecute('getPacket()');
-    packets += packet;
+    if (packet) packets += packet;
   } while (packet);
 
   const obj = JSON.parse(packets);

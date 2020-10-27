@@ -125,7 +125,7 @@ function parseThisWeek() {
 function packetify(str) {
   console.log('packetify');
   const packetSize = 5000;
-  const size = str.length
+  const size = str.length;
   for (var i = 0; i < size; i += packetSize) {
     packets.unshift(str.substring(i, i + packetSize));
   }
