@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="fr.thissma.adePolytech" version="1.2.32" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="fr.thissma.adePolytech" version="1.2.33" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>polytech edt</name>
     <description>
         Emploi du temps de Polytech Paris-Saclay (application non-officielle)
@@ -12,53 +12,31 @@
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <platform name="android">
-        <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application">
-            <application android:usesCleartextTraffic="true" />
-            <application android:icon="@mipmap/ic_launcher" android:roundIcon="@mipmap/ic_launcher_round" />
-        </edit-config>
 
-        <!-- <resource-file src="res/icon/drawable/ic_launcher_foreground.xml" target="/app/src/main/res/drawable/ic_launcher_foreground.xml" />
-        <resource-file src="res/icon/ic_launcher-playstore.png" target="/app/src/main/res/ic_launcher-playstore.png" />
-        <icon background="@color/ic_launcher_background" density="anydpi" foreground="@drawable/ic_launcher_foreground" /> -->
+      <preference name="android-targetSdkVersion" value="30" />
 
-        <!-- <resource-file src="res/icon/drawable/ic_launcher_foreground.xml" target="/app/src/main/res/drawable/ic_launcher_foreground.xml" />
-        <resource-file src="res/icon/mipmap-anydpi-v26/ic_launcher.xml" target="/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" />
-        <resource-file src="res/icon/mipmap-anydpi-v26/ic_launcher_round.xml" target="/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" /> -->
+      <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application">
+          <application android:usesCleartextTraffic="true" />
+          <application android:icon="@mipmap/ic_launcher" android:roundIcon="@mipmap/ic_launcher_round" />
+      </edit-config>
 
-	    <resource-file src="res/icon/ic_launcher-playstore.png" target="/app/src/main/res/ic_launcher-playstore.png" />
-	    <resource-file src="res/icon/values/ic_launcher_background.xml" target="/app/src/main/res/values/ic_launcher_background.xml" />
-		<resource-file src="res/icon/drawable/ic_launcher_foreground.xml" target="app/src/main/res/drawable/ic_launcher_foreground.xml" />
-		<resource-file src="res/icon/mipmap-anydpi-v26/ic_launcher.xml" target="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" />
-		<resource-file src="res/icon/mipmap-anydpi-v26/ic_launcher_round.xml" target="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" />
+      <resource-file src="res/icon/ic_launcher-playstore.png" target="/app/src/main/res/ic_launcher-playstore.png" />
+      <resource-file src="res/icon/values/ic_launcher_background.xml" target="/app/src/main/res/values/ic_launcher_background.xml" />
+  		<resource-file src="res/icon/drawable/ic_launcher_foreground.xml" target="app/src/main/res/drawable/ic_launcher_foreground.xml" />
+  		<resource-file src="res/icon/mipmap-anydpi-v26/ic_launcher.xml" target="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" />
+  		<resource-file src="res/icon/mipmap-anydpi-v26/ic_launcher_round.xml" target="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" />
 
-		<!-- <resource-file src="res/icon/mipmap-mdpi/ic_launcher.png" target="app/src/main/res/mipmap-mdpi/ic_launcher.png" />
-		<resource-file src="res/icon/mipmap-mdpi/ic_launcher.png" target="app/src/main/res/mipmap-mdpi/ic_launcher.png" />
-		<resource-file src="res/icon/mipmap-mdpi/ic_launcher_round.png" target="app/src/main/res/mipmap-mdpi/ic_launcher_round.png" />
-		<resource-file src="res/icon/mipmap-hdpi/ic_launcher.png" target="app/src/main/res/mipmap-hdpi/ic_launcher.png" />
-		<resource-file src="res/icon/mipmap-hdpi/ic_launcher.png" target="app/src/main/res/mipmap-hdpi/ic_launcher.png" />
-		<resource-file src="res/icon/mipmap-hdpi/ic_launcher_round.png" target="app/src/main/res/mipmap-hdpi/ic_launcher_round.png" />
-		<resource-file src="res/icon/mipmap-xhdpi/ic_launcher.png" target="app/src/main/res/mipmap-xhdpi/ic_launcher.png" />
-		<resource-file src="res/icon/mipmap-xhdpi/ic_launcher.png" target="app/src/main/res/mipmap-xhdpi/ic_launcher.png" />
-		<resource-file src="res/icon/mipmap-xhdpi/ic_launcher_round.png" target="app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" />
-		<resource-file src="res/icon/mipmap-xxhdpi/ic_launcher.png" target="app/src/main/res/mipmap-xxhdpi/ic_launcher.png" />
-		<resource-file src="res/icon/mipmap-xxhdpi/ic_launcher.png" target="app/src/main/res/mipmap-xxhdpi/ic_launcher.png" />
-		<resource-file src="res/icon/mipmap-xxhdpi/ic_launcher_round.png" target="app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" />
-		<resource-file src="res/icon/mipmap-xxxhdpi/ic_launcher.png" target="app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" />
-		<resource-file src="res/icon/mipmap-xxxhdpi/ic_launcher.png" target="app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" />
-		<resource-file src="res/icon/mipmap-xxxhdpi/ic_launcher_round.png" target="app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" /> -->
+      <icon background="@color/ic_launcher_background" density="mdpi" foreground="res/icon/mipmap-mdpi/ic_launcher.png" />
+      <icon background="@color/ic_launcher_background" density="hdpi" foreground="res/icon/mipmap-hdpi/ic_launcher.png" />
+      <icon background="@color/ic_launcher_background" density="xhdpi" foreground="res/icon/mipmap-xhdpi/ic_launcher.png" />
+      <icon background="@color/ic_launcher_background" density="xxhdpi" foreground="res/icon/mipmap-xxhdpi/ic_launcher.png" />
+      <icon background="@color/ic_launcher_background" density="xxxhdpi" foreground="res/icon/mipmap-xxxhdpi/ic_launcher.png" />
 
-	    <icon background="@color/ic_launcher_background" density="mdpi" foreground="res/icon/mipmap-mdpi/ic_launcher.png" />
-	    <icon background="@color/ic_launcher_background" density="hdpi" foreground="res/icon/mipmap-hdpi/ic_launcher.png" />
-	    <icon background="@color/ic_launcher_background" density="xhdpi" foreground="res/icon/mipmap-xhdpi/ic_launcher.png" />
-	    <icon background="@color/ic_launcher_background" density="xxhdpi" foreground="res/icon/mipmap-xxhdpi/ic_launcher.png" />
-	    <icon background="@color/ic_launcher_background" density="xxxhdpi" foreground="res/icon/mipmap-xxxhdpi/ic_launcher.png" />
-
-		<resource-file src="res/icon/mipmap-mdpi/ic_launcher_round.png" target="app/src/main/res/mipmap-mdpi/ic_launcher_round.png" />
-		<resource-file src="res/icon/mipmap-hdpi/ic_launcher_round.png" target="app/src/main/res/mipmap-hdpi/ic_launcher_round.png" />
-		<resource-file src="res/icon/mipmap-xhdpi/ic_launcher_round.png" target="app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" />
-		<resource-file src="res/icon/mipmap-xxhdpi/ic_launcher_round.png" target="app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" />
-		<resource-file src="res/icon/mipmap-xxxhdpi/ic_launcher_round.png" target="app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" />
-
+  		<resource-file src="res/icon/mipmap-mdpi/ic_launcher_round.png" target="app/src/main/res/mipmap-mdpi/ic_launcher_round.png" />
+  		<resource-file src="res/icon/mipmap-hdpi/ic_launcher_round.png" target="app/src/main/res/mipmap-hdpi/ic_launcher_round.png" />
+  		<resource-file src="res/icon/mipmap-xhdpi/ic_launcher_round.png" target="app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" />
+  		<resource-file src="res/icon/mipmap-xxhdpi/ic_launcher_round.png" target="app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" />
+  		<resource-file src="res/icon/mipmap-xxxhdpi/ic_launcher_round.png" target="app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" />
 
     </platform>
     <plugin name="cordova-plugin-network-information" spec="^2.0.1" />

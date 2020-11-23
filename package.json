@@ -28,7 +28,7 @@
         ]
     },
     "devDependencies": {
-        "cordova-android": "^8.1.0",
+        "cordova-android": "^9.0.0",
         "cordova-plugin-inappbrowser": "git+https://github.com/apache/cordova-plugin-inappbrowser.git"
     }
 }
