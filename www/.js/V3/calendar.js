@@ -69,16 +69,14 @@ function addPendingRequest(request) {
 }
 
 function cancelPendingRequest() {
-  if ('reject' in pendingRequest) pendingRequest.reject(new Error(P.err.REQUEST_CANCELLED));
+  // if ('reject' in pendingRequest) pendingRequest.reject(new Error(P.err.REQUEST_CANCELLED)); // TODO: deprecated
   finishPendingRequest();
 }
 
 function finishPendingRequest() {
   pendingRequest = {};
   Notification.hide('loading');
-  waitForData = false;
 }
-
 
 async function handlePendingRequest() {
   if (!pendingRequest || !('dateString' in pendingRequest)) return; // no pending request
@@ -94,27 +92,34 @@ async function handlePendingRequest() {
   }
 
   else {
+    console.log("hello");
     waitForData = true;
     let week;
     await Network.whenOnline();
     try {
       week = await Communication.requestWeek(pendingRequest.dateString);
+      console.log("here");
     } catch (err) {
       handleError(err);
+      waitForData = false;
       return;
     }
+    waitForData = false;
     await handleReceivedWeek(week);
   }
 }
 
-function handleError(err) {
-  waitForData = false;
+function handleError(err) { // TODO: this is dirty
   if (err.message === P.err.BUTTON_NOT_FOUND) {
     console.error(err);
     Notification.show('dateError', { duration: 3000 });
     cancelPendingRequest();
   }
   else if (err.message === P.err.WEBVIEW_NOT_LOADED) {
+    console.error(err);
+    Notification.show('calendarError', { duration: 3000 });
+  }
+  else if (err.message === P.err.CALENDAR_ERROR) {
     console.error(err);
     Notification.show('calendarError', { duration: 3000 });
   }

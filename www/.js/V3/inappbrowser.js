@@ -30,10 +30,17 @@ async function unpack() {
 
   do {
     packet = await promiseExecute('getPacket()');
-    packets += packet;
+    if (packet) packets += packet;
   } while (packet);
 
-  const obj = JSON.parse(packets);
+  let obj;
+  try {
+    obj = JSON.parse(packets);
+  } catch (e) {
+    console.warn('failed to resolve packets:', packets);
+    console.error(e);
+    throw new Error(P.err.CALENDAR_ERROR);
+  }
   console.log('resolved packet :', obj);
   return obj;
 }

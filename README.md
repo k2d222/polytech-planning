@@ -7,7 +7,7 @@
 
 ## prerequisites
 
- - cordova (nvm) `sudo npm install -g cordova`
+ - cordova (nvm) `npm install -g cordova`
  - android-studio `flatpak ?`
  - gradle (or installed as wrapper by android-studio, see below)
  - setup ANDROID_SDK_ROOT : `gedit ~/.bashrc`

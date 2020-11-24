@@ -62,7 +62,8 @@ export const Proxy = {
   err: {
     BUTTON_NOT_FOUND: 'button not found',
     WEBVIEW_NOT_LOADED: 'webview not loaded',
-    REQUEST_CANCELLED: 'request cancelled'
+    REQUEST_CANCELLED: 'request cancelled',
+    CALENDAR_ERROR: 'calendar error'
   },
 
   html: {
