@@ -1,14 +1,14 @@
-import { Proxy as P } from './proxy.js'
+import { Proxy as P } from './proxy'
 
-import { Settings } from './settings.js'
-import { Calendar } from './calendar.js'
-import { CalendarDrawer } from './calendarDrawer.js'
-import { Day } from './day.js'
-import { DatePicker } from './datepicker.js'
+import { Settings } from './settings'
+import { Calendar } from './calendar'
+import { CalendarDrawer } from './calendarDrawer'
+import { Day } from './day'
+import { DatePicker } from './datepicker'
 
 $(document.body).on('touchmove', function(e) {
-  let set = [e.target, ...$(e.target).parents()];
-  for (let el of set) {
+  const set = [e.target, ...$(e.target).parents()];
+  for (const el of set) {
     if ((el.scrollHeight > el.clientHeight || el.scrollWidth > el.clientWidth) && $(el).css('overflow') !== 'visible') {
       $(el).addClass('touched').one('touchend', function() {
         $(this).removeClass('touched');
@@ -21,11 +21,12 @@ $(document.body).on('touchmove', function(e) {
 const landscape = (screen.orientation.type.indexOf('portrait') === -1);
 CalendarDrawer.setDrawMode(landscape ? 'landscape' : 'portrait');
 
-screen.orientation.onchange = function(e) {
-  const landscape = (e.target.type.indexOf('portrait') === -1);
+function onScreenOrientChange() {
+  const landscape = (screen.orientation.type.indexOf('portrait') === -1);
   CalendarDrawer.setDrawMode(landscape ? 'landscape' : 'portrait');
   Calendar.draw(Calendar.getCurrentDay());
 }
+screen.orientation.addEventListener('change', onScreenOrientChange);
 
 P.$BUTTON_SETTINGS.click(function() {
   Settings.show()
@@ -58,7 +59,7 @@ P.$DATE_CONTAINER.click(function() {
 })
 
 // gifs rigolos
-var gifRequest;
+let gifRequest: JQuery.jqXHR;
 
 P.$GIF_CONTAINER.click(function() {
   P.$GIF_CONTAINER.hide();
@@ -66,8 +67,8 @@ P.$GIF_CONTAINER.click(function() {
 })
 
 P.$COURSE_CONTAINER.click(function(evt) {
-  let $el = $(evt.target);
-  let $clickedGrade = $el.parents().add($el).filter(P.$.COURSE);
+  const $el = $(evt.target);
+  const $clickedGrade = $el.parents().add($el).filter(P.$.COURSE);
   if ($clickedGrade.length === 0) return;
 
   const text = $clickedGrade.find('b').html().toLowerCase();

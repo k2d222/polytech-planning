@@ -1,5 +1,5 @@
-import { Settings } from './settings.js';
-import { Proxy as P } from './proxy.js'
+import { Settings } from './settings';
+import { Proxy as P } from './proxy'
 
 async function init() {
 
@@ -11,32 +11,32 @@ async function init() {
   // show welcome dialog (disabled feature for now...)
   if (!storage.has(P.storage.ACKNOWLEDGED)) {
     // P.$ABOUT_CONTAINER.removeClass('hidden');
-    storage.set(P.storage.ACKNOWLEDGED, true);
+    storage.set(P.storage.ACKNOWLEDGED, '1');
   }
 
   if (!storage.has(P.storage.VERSION)) {
     storage.clear()
     await Settings.show({ cancelDisabled: true });
     storage.set(P.storage.VERSION, P.STORAGE_VERSION);
-    storage.set('root', true); // TODO
+    storage.set('root', '1'); // TODO
   }
 }
 
 var storage = {
   init: init,
-  set: function(key, val) {
+  set: function(key: string, val: string) {
     window.localStorage.setItem(key, val);
   },
-  get: function(key) {
+  get: function(key: string): string {
     return window.localStorage[key];
   },
   clear: function() {
     window.localStorage.clear();
   },
-  has: function(key) {
+  has: function(key: string): boolean {
     return key in window.localStorage;
   },
-  get length() {
+  get length(): number {
     return window.localStorage.length;
   }
 };

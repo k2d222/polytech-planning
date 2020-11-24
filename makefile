@@ -4,7 +4,7 @@ all: build run
 
 
 run:
-	cordova run
+	npm run run
 
 build:
-	cordova build
+	npm run build

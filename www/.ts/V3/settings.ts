@@ -1,27 +1,29 @@
-import { Filter } from './filter.js';
-import { Storage } from './storage.js';
-import { App } from './app.js';
-import { Calendar } from './calendar.js';
-import { CalendarDrawer } from './calendarDrawer.js';
-import { Day } from './day.js';
-import { Proxy as P } from './proxy.js';
+import { Filter } from './filter';
+import { Storage } from './storage';
+import { App } from './app';
+import { Calendar } from './calendar';
+import { CalendarDrawer } from './calendarDrawer';
+import { Day } from './day';
+import { Proxy as P } from './proxy';
+import { TFilter } from './types';
 
-function domAddField(filter, $parent) { // can be recursive
-  for (var filtre of filter.subfilters) { // TODO nommage variables
-    var $filtre = $('<div/>');
+function domAddField(filter: TFilter, $parent: JQuery<HTMLElement>) { // can be recursive
+  for (const filtre of filter.subfilters) { // TODO nommage variables
+    const $filtre = $('<div/>');
     $filtre.data('key', filtre.key);
     $filtre.addClass('element filtre');
-    var $check = $(P.html.SETTINGS_CHECKBOX);
+    const $check = $(P.html.SETTINGS_CHECKBOX);
     $check.click(function(e) {
-      var $check = $(e.target);
+      const $check = $(e.target);
       if ($check.is(':checked')) $check.siblings().removeClass('disabled');
       else $check.siblings().addClass('disabled');
     });
-    var $label = $('<label/>');
+    const $label = $('<label/>');
     $label.html(filtre.display);
-    var $dropdown = $('<select/>');
-    for (var index in filtre.variable) {
-      var option = index;
+    const $dropdown = $('<select/>');
+
+    for (const index in filtre.variable) {
+      let option = index;
       if (Array.isArray(filtre.variable)) option = filtre.variable[index];
       $dropdown.append($('<option value="' + filtre.variable[index] + '"/>').html(option));
     }
@@ -32,16 +34,16 @@ function domAddField(filter, $parent) { // can be recursive
 }
 
 function applySettings() {
-  for (var domFiltre of $(P.$.SETTINGS_FILTER)) {
-    var $filtre = $(domFiltre);
-    var key = $filtre.data('key');
+  for (const domFiltre of $(P.$.SETTINGS_FILTER)) {
+    const $filtre = $(domFiltre);
+    const key = $filtre.data('key');
     if ($filtre.children('input[type=checkbox]').is(':checked')) {
-      var select = $filtre.children('select').get(0);
-      var value = select.options[select.selectedIndex].value;
+      const select = <HTMLSelectElement>$filtre.children('select').get(0);
+      const value = select.options[select.selectedIndex].value;
       Storage.set(key, value);
     }
     else {
-      Storage.set(key, false);
+      Storage.set(key, '0');
     }
   }
   P.$SETTINGS_CONTAINER.addClass('hidden');
@@ -57,14 +59,14 @@ function setCurrentSettings() {
     P.$SETTINGS_THEME.val(Storage.get(P.storage.THEME));
   }
 
-  for (let filter of $(P.$.SETTINGS_FILTER)) {
-    let $filter = $(filter);
+  for (const filter of $(P.$.SETTINGS_FILTER)) {
+    const $filter = $(filter);
     const key = $filter.data('key');
     if (Storage.has(key)) {
-      let $select = $filter.children('select');
+      const $select = $filter.children('select');
       const val = Storage.get(key);
       if (val === 'false') {
-        let $check = $filter.children('input[type=checkbox]');
+        const $check = $filter.children('input[type=checkbox]');
         if ($check.length === 1) $check.trigger('click');
       }
       if ($select.children('option').is('[value="' + val + '"]')) {
@@ -74,13 +76,13 @@ function setCurrentSettings() {
   }
 }
 
-function loadDOM(filter) {
+function loadDOM(filter: TFilter) {
   P.$SETTINGS_FILTER.children().remove();
   domAddField(filter, P.$SETTINGS_FILTER);
 }
 
 function show({ cancelDisabled = false } = {}) {
-  return new Promise(function(resolve, reject) {
+  return new Promise<void>(function(resolve, reject) {
 
     P.$SETTINGS_CONTAINER.removeClass('hidden');
     if (cancelDisabled) P.$SETTINGS_CANCEL.hide();
@@ -113,9 +115,10 @@ function show({ cancelDisabled = false } = {}) {
 
 
 P.$SETTINGS_GRADE.change(function() {
-  let $sel = P.$SETTINGS_GRADE.children().filter(':checked');
-  let val = $sel.attr('value');
-  Storage.set(P.storage.GRADE, val);
+  const $sel = P.$SETTINGS_GRADE.children().filter(':checked');
+  const val = $sel.attr('value');
+  if(val) Storage.set(P.storage.GRADE, val);
+  else throw new Error("missing attribute 'value' on settings element");
 
   Storage.set(P.storage.SAVED_DAYS, ''); // try to delete currently drawn courses
   Calendar.init();
@@ -135,7 +138,7 @@ P.$SETTINGS_GRADE.change(function() {
 
 //-----------------------
 
-export var Settings = (function() {
+export const Settings = (function() {
 
   return {
     callbackOnce: function() { },

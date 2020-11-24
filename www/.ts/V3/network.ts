@@ -1,4 +1,4 @@
-import { Notification } from './notification.js'
+import { Notification } from './notification'
 
 export var Network = (function() {
 
@@ -31,7 +31,7 @@ export var Network = (function() {
       if (state === 'online' || navigator.connection.type !== Connection.NONE) {
         return Promise.resolve();
       }
-      return new Promise(function(resolve) {
+      return new Promise<void>(function(resolve) {
         const interval = setInterval(function() {
           if (state === 'online' || navigator.connection.type !== Connection.NONE) {
             clearInterval(interval);

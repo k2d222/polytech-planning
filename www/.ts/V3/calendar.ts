@@ -1,41 +1,43 @@
-import { Storage } from './storage.js';
-import { Communication } from './communication.js';
-import { Notification } from './notification.js'
-import { Day } from './day.js';
-import { Network } from './network.js';
-import { CalendarDrawer } from './calendarDrawer.js';
-import { Proxy as P } from './proxy.js'
+import { Storage } from './storage';
+import { Communication } from './communication';
+import { Notification } from './notification'
+import { Day } from './day';
+import { Network } from './network';
+import { CalendarDrawer } from './calendarDrawer';
+import { Proxy as P } from './proxy'
+import { TRequest, TStore, TMiniStore } from './types'
 
-function loadCache() {
-  let cacheStr = Storage.get(P.storage.SAVED_DAYS);
-  let cache = {};
+function loadCache(): TStore {
+  const cacheStr = Storage.get(P.storage.SAVED_DAYS);
+  let cache: TStore;
   try {
     cache = JSON.parse(cacheStr);
   } catch (e) {
     console.warn('days cache is unset or invalid.');
+    cache = {};
   }
   return cache;
 }
 
-function saveCache(cache) {
+function saveCache(cache: TStore) {
   Storage.set(P.storage.SAVED_DAYS, JSON.stringify(cache));
 }
 
 // -------------------------
-let waitForData; // inappbrowser is loading
-let cache;
-let storage;
-let pendingRequest;
-let currentDay;
+let waitForData: boolean; // inappbrowser is loading
+let cache: TStore;
+let storage: TStore;
+let pendingRequest: TRequest;
+let currentDay: string | null;
 
-function updateNavigationButtons(dateString) { // disable or enable nav buttons
+function updateNavigationButtons(dateString: string) { // disable or enable nav buttons
   if (!waitForData && Network.online) {
     P.$BUTTON_PREV.removeClass('disabled');
     P.$BUTTON_NEXT.removeClass('disabled');
     return;
   }
-  var prevDay = Day.add(dateString, -1);
-  var nextDay = Day.add(dateString, 1);
+  const prevDay = Day.add(dateString, -1);
+  const nextDay = Day.add(dateString, 1);
   if (!(prevDay in cache) && !(dateString in cache)) {
     P.$BUTTON_PREV.addClass('disabled');
   }
@@ -46,9 +48,9 @@ function updateNavigationButtons(dateString) { // disable or enable nav buttons
   else P.$BUTTON_NEXT.removeClass('disabled');
 }
 
-function registerWeek(mini) {
+function registerWeek(mini: TMiniStore) {
   let dateString = mini.date; // date is a monday
-  for (let i in mini.days) {
+  for (const i in mini.days) {
     storage[dateString] = mini.days[i];
     cache[dateString] = mini.days[i];
     dateString = Day.add(dateString, 1);
@@ -56,12 +58,12 @@ function registerWeek(mini) {
   saveCache(cache);
 }
 
-function handleReceivedWeek(data) {
+function handleReceivedWeek(data: TMiniStore) {
   registerWeek(data);
   handlePendingRequest();
 }
 
-function addPendingRequest(request) {
+function addPendingRequest(request: TRequest) {
   cancelPendingRequest();
   pendingRequest = request;
   Notification.show('loading');
@@ -109,7 +111,7 @@ async function handlePendingRequest() {
   }
 }
 
-function handleError(err) { // TODO: this is dirty
+function handleError(err: Error) { // TODO: this is dirty
   if (err.message === P.err.BUTTON_NOT_FOUND) {
     console.error(err);
     Notification.show('dateError', { duration: 3000 });
@@ -132,15 +134,15 @@ function handleError(err) { // TODO: this is dirty
   }
 }
 
-function drawFromCache(dateString) {
+function drawFromCache(dateString: string) {
   if (dateString in cache) {
     CalendarDrawer.draw(dateString, cache);
   }
 }
 
-function draw(dateString) {
+function draw(dateString: string) {
   currentDay = dateString;
-  return new Promise(function(resolve, reject) {
+  return new Promise<void>(function(resolve, reject) {
     if (dateString in storage) {
       cancelPendingRequest();
       CalendarDrawer.draw(dateString, cache);
@@ -175,6 +177,7 @@ export const Calendar = {
   draw: draw,
   drawFromCache: drawFromCache,
   getCurrentDay: function() {
+    if(!currentDay) throw new Error('calendar has no current day');
     return currentDay;
   },
   // update: handlePendingRequest

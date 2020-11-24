@@ -1,6 +1,10 @@
-var timeouts = {};
+var timeouts: { [key: string] : number} = {};
 
-function show(notifName, { duration = false } = {}) {
+interface showSettings {
+  duration: false | number;
+}
+
+function show(notifName: string, { duration = false }: Partial<showSettings> = {}) {
   console.debug('notification:', notifName);
   if (notifName in timeouts) clearTimeout(timeouts[notifName]);
   $('.notification#' + notifName).removeClass('hidden');
@@ -11,7 +15,7 @@ function show(notifName, { duration = false } = {}) {
   }
 }
 
-function hide(notifName) {
+function hide(notifName: string) {
   if (notifName in timeouts) clearTimeout(timeouts[notifName]);
   $('.notification#' + notifName).addClass('hidden');
 }

@@ -1,14 +1,15 @@
-import { Proxy as P } from './proxy.js'
+import { Proxy as P } from './proxy'
 
-import { Storage } from './storage.js'
-import { Filter } from './filter.js'
-import { Calendar } from './calendar.js'
-import { Network } from './network.js'
-import { InappBrowser } from './inappbrowser.js'
-import { Day } from './day.js'
-import { Theme } from './theme.js'
+import { Storage } from './storage'
+import { Filter } from './filter'
+import { Calendar } from './calendar'
+import { Network } from './network'
+import { InappBrowser } from './inappbrowser'
+import { Day } from './day'
+import { Theme } from './theme'
+import { Notification } from './notification'
 
-require('./events.js');
+import './events'
 
 
 async function onDeviceReady() {
@@ -24,7 +25,7 @@ async function onDeviceReady() {
   catch (err) {
     console.error('something bad happened !');
     console.error(err);
-    Notification.show('majorError')
+    Notification.show('majorError');
   }
 }
 
@@ -44,17 +45,4 @@ function restartInappBrowser() {
 
 // ---------------------
 
-let inst = null;
-
-function createInstance() { // Constructor like
-  inst = {
-    init: init,
-    restartInappBrowser: restartInappBrowser
-  };
-}
-
-export function App() { // Singleton-like
-  if (inst === null) createInstance();
-
-  return inst;
-}
+export const App = { init, restartInappBrowser };

@@ -3,7 +3,19 @@ const webpack = require('webpack');
 
 module.exports = {
   mode: 'development',
-  entry: './www/.js/index.js',
+  entry: './www/.ts/index.ts',
+  module: {
+    rules: [
+      {
+        test: /\.ts$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      },
+    ],
+  },
+  resolve: {
+    extensions: ['.ts', '.js'],
+  },
   output: {
     path: path.resolve(__dirname, 'www'),
     filename: 'index.bundle.js',

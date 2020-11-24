@@ -1,10 +1,10 @@
-import { Day } from './day.js'
-import { InappBrowser } from './inappbrowser.js'
-import { Proxy as P } from './proxy.js'
+import { Day } from './day'
+import { InappBrowser } from './inappbrowser'
+import { Proxy as P } from './proxy'
 
-function createStringRequest(functionName, args) {
-  let strArgs = []
-  for (let arg of args) {
+function createStringRequest(functionName: string, args: any[]): string {
+  const strArgs = []
+  for (const arg of args) {
     switch (typeof arg) {
       case 'string':
         strArgs.push('"' + arg + '"')
@@ -23,23 +23,23 @@ function createStringRequest(functionName, args) {
   return functionName + '(' + strArgs.join(',') + ')';
 }
 
-function request(functionName, args) {
+function request(functionName: string, args: any[]) {
   const req = createStringRequest(functionName, args);
   return InappBrowser.eval(req);
 }
 
-function promiseTimeout(timeout) {
+function promiseTimeout(timeout: number) {
   return new Promise(function(resolve) {
     setTimeout(resolve, timeout);
   });
 }
 
-function waitUntil(functionName, args, expectedResult, frequency = P.com.DEFAULT_UPDATE_INTERVAL) {
-  let interval;
+function waitUntil<Res>(functionName: string, args: any[], expectedResult: Res, frequency: number = P.com.DEFAULT_UPDATE_INTERVAL) {
+  let interval: number;
 
-  return new Promise(function(resolve, reject) {
+  return new Promise<void>(function(resolve, reject) {
 
-    function then(res) {
+    function then(res: Res) {
       if (res == expectedResult) {
         clearInterval(interval);
         resolve();
@@ -61,25 +61,25 @@ function waitUntil(functionName, args, expectedResult, frequency = P.com.DEFAULT
   });
 }
 
-async function requestWeek(dateString) {
+async function requestWeek(dateString: string) {
   dateString = Day.monday(dateString);
   await waitUntil('isWeekLoaded', [], true);
-  let currentDate = await request('getCurrentDate', []);
+  const currentDate = await request('getCurrentDate', []);
 
   if (currentDate !== dateString) { // must load week before
-    let res = await request('clickButton', [dateString])
+    const res = await request('clickButton', [dateString])
     if (!res) throw new Error(P.err.BUTTON_NOT_FOUND);
     else await promiseTimeout(P.com.TIMEOUT_AFTER_BUTTON_PRESS);
     await waitUntil('getCurrentDate', [], dateString);
     await waitUntil('isWeekLoaded', [], true);
   }
 
-  let res = await request('parseThisWeek', [])
+  const res = await request('parseThisWeek', [])
   console.log('received week', res);
   return res;
 }
 
-export var Communication = (function() { // communication with webview
+export const Communication = (function() { // communication with webview
 
   return {
     requestWeek: requestWeek

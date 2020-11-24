@@ -1,7 +1,7 @@
-import { Proxy as P } from './proxy.js'
-import { Storage } from './storage.js'
+import { Proxy as P } from './proxy'
+import { Storage } from './storage'
 
-function set(themeName) {
+function set(themeName: string) {
   if (themeName) {
     P.$THEME_STYLESHEET.attr('href', P.dir.THEMES + themeName + '.css');
   }
@@ -13,8 +13,11 @@ function set(themeName) {
 P.$SETTINGS_THEME.change(function() {
   let $sel = P.$SETTINGS_THEME.children().filter(':checked');
   let val = $sel.attr('value');
-  Storage.set(P.storage.THEME, val);
-  set(val);
+  if(val) {
+    Storage.set(P.storage.THEME, val);
+    set(val);
+  }
+  else throw new Error("settings element is missing 'value' attribute.");
 })
 
 

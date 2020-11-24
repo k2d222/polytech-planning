@@ -1,14 +1,14 @@
-import { Proxy as P } from './proxy.js'
-import { Day } from './day.js'
-import { Calendar } from './calendar.js'
+import { Proxy as P } from './proxy'
+import { Day } from './day'
+import { Calendar } from './calendar'
 
 const months = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
 const week = ['L', 'M', 'M', 'J', 'V'];
 
-function create(dateString) {
+function create(dateString: string) {
   drawnDate = dateString;
   P.$DATE_PICKER.html("");
-  for (let day of week) {
+  for (const day of week) {
     P.$DATE_PICKER.append('<div class="dayName">' + day + '</div>')
   }
 
@@ -25,32 +25,33 @@ function create(dateString) {
   const today = Day.today();
   const current = Calendar.getCurrentDay();
   while (Day.month(date) === month) {
-    let $el = $('<div class="dayNumber" date="' + date + '">' + Day.date(date) + '</div>');
+    const $el = $('<div class="dayNumber" date="' + date + '">' + Day.date(date) + '</div>');
     if (date === current) $el.addClass('selected');
     if (date === today) $el.addClass('today');
     $el.click(function() {
-      let $btn = $(this);
+      const $btn = $(this);
       $btn.addClass('selected');
       const dateString = $btn.attr('date');
-      Calendar.draw(dateString);
+      if(dateString) Calendar.draw(dateString);
+      else throw new Error("missing attribute 'date' on datepicker button");
     })
     P.$DATE_PICKER.append($el);
     date = Day.add(date, 1);
   }
 }
 
-let drawnDate;
+let drawnDate: string;
 
 function init() {
   drawnDate = Day.today();
 
   P.$DATE_PICKER_PREV.click(function() {
-    let d = new Date(drawnDate);
+    const d = new Date(drawnDate);
     d.setMonth(d.getMonth() - 1);
     create(d.toDateString());
   })
   P.$DATE_PICKER_NEXT.click(function() {
-    let d = new Date(drawnDate);
+    const d = new Date(drawnDate);
     d.setMonth(d.getMonth() + 1);
     create(d.toDateString());
   })
