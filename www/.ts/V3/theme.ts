@@ -11,8 +11,8 @@ function set(themeName: string) {
 }
 
 P.$SETTINGS_THEME.change(function() {
-  let $sel = P.$SETTINGS_THEME.children().filter(':checked');
-  let val = $sel.attr('value');
+  const $sel = P.$SETTINGS_THEME.children().filter(':checked');
+  const val = $sel.attr('value');
   if(val) {
     Storage.set(P.storage.THEME, val);
     set(val);
@@ -21,6 +21,6 @@ P.$SETTINGS_THEME.change(function() {
 })
 
 
-export var Theme = {
-  set: set
+export const Theme = {
+  set
 };

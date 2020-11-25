@@ -5,9 +5,8 @@ import { Calendar } from './calendar';
 import { CalendarDrawer } from './calendarDrawer';
 import { Day } from './day';
 import { Proxy as P } from './proxy';
-import { TFilter } from './types';
 
-function domAddField(filter: TFilter, $parent: JQuery<HTMLElement>) { // can be recursive
+function domAddField(filter: Filter, $parent: JQuery<HTMLElement>) { // can be recursive
   for (const filtre of filter.subfilters) { // TODO nommage variables
     const $filtre = $('<div/>');
     $filtre.data('key', filtre.key);
@@ -76,7 +75,7 @@ function setCurrentSettings() {
   }
 }
 
-function loadDOM(filter: TFilter) {
+function loadDOM(filter: Filter) {
   P.$SETTINGS_FILTER.children().remove();
   domAddField(filter, P.$SETTINGS_FILTER);
 }
@@ -130,7 +129,7 @@ P.$SETTINGS_GRADE.change(function() {
     .then(function() {
       P.$SETTINGS_CANCEL.hide();
       loadDOM(Filter.loadedFilter);
-      return App().restartInappBrowser();
+      return App.restartInappBrowser();
     }).then(function() {
       Calendar.draw(Day.today());
     });

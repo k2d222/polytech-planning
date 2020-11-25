@@ -3,27 +3,27 @@ import { Proxy as P } from './proxy'
 
 async function init() {
 
-  if (storage.has(P.storage.VERSION) && storage.get(P.storage.VERSION) !== P.STORAGE_VERSION) {
+  if (Storage.has(P.storage.VERSION) && Storage.get(P.storage.VERSION) !== P.STORAGE_VERSION) {
     alert('L\'appli à été mise à jour !');
-    storage.clear();
+    Storage.clear();
   }
 
   // show welcome dialog (disabled feature for now...)
-  if (!storage.has(P.storage.ACKNOWLEDGED)) {
+  if (!Storage.has(P.storage.ACKNOWLEDGED)) {
     // P.$ABOUT_CONTAINER.removeClass('hidden');
-    storage.set(P.storage.ACKNOWLEDGED, '1');
+    Storage.set(P.storage.ACKNOWLEDGED, '1');
   }
 
-  if (!storage.has(P.storage.VERSION)) {
-    storage.clear()
+  if (!Storage.has(P.storage.VERSION)) {
+    Storage.clear()
     await Settings.show({ cancelDisabled: true });
-    storage.set(P.storage.VERSION, P.STORAGE_VERSION);
-    storage.set('root', '1'); // TODO
+    Storage.set(P.storage.VERSION, P.STORAGE_VERSION);
+    Storage.set('root', '1'); // TODO
   }
 }
 
-var storage = {
-  init: init,
+export const Storage = {
+  init,
   set: function(key: string, val: string) {
     window.localStorage.setItem(key, val);
   },
@@ -40,11 +40,3 @@ var storage = {
     return window.localStorage.length;
   }
 };
-
-
-
-export var Storage = (function() {
-
-  return storage;
-
-})();

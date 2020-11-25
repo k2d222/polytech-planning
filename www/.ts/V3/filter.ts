@@ -1,13 +1,22 @@
 import { Storage } from './storage';
-import { TFilter, TExpanded } from './types';
+import { ExpandedCourse } from './calendarData';
 
-let loadedFilter: TFilter;
+export interface Filter {
+  key: string;
+  display: string;
+  variable: { [key: string]: string; [key: number]: string };
+  subfilters: Filter[];
+  whitelist?: string[];
+  blacklist?: string[];
+};
+
+let loadedFilter: Filter;
 let filterName = '';
 
-function checkList(classe: TExpanded, list: string[]) {
-  const contenu = classe.title.split('<br>')
-  for (const ligne of contenu) {
-    for (const el of list) if (expr_test(ligne, el)) return true
+function checkList(course: ExpandedCourse, list: string[]) {
+  const content = course.title.split('<br>')
+  for (const ligne of content) {
+    for (const el of list) if (expr_test(ligne, el)) return true;
   }
   return false
 }
@@ -31,7 +40,7 @@ function fetchJSON(url: string) {
   });
 }
 
-function filterElement(el: TExpanded, filter = loadedFilter): boolean { // returns bool blacklisted (recursive)
+function filterElement(el: ExpandedCourse, filter = loadedFilter): boolean { // returns bool blacklisted (recursive)
   let res = false; // whitelisté par défaut
   if (!(Storage.has(filter.key)) || Storage.get(filter.key) === 'false') return false;
   if (filter.whitelist) {
@@ -52,24 +61,14 @@ function filterElement(el: TExpanded, filter = loadedFilter): boolean { // retur
 async function loadFilter(name: string) {
   if (name === filterName && name !== '') return Promise.resolve(loadedFilter);
   filterName = name;
-  loadedFilter = <TFilter>await fetchJSON('filters/' + filterName + '.json');
+  loadedFilter = <Filter>await fetchJSON('filters/' + filterName + '.json');
   return loadedFilter;
 }
 
-interface IFilter {
-  filterElement: (el: TExpanded, filter?: TFilter) => boolean;
-  loadFilter: (name: string) => Promise<TFilter>;
-  readonly loadedFilter: TFilter;
-}
-
-export const Filter: IFilter = (function() {
-
-  return {
-    filterElement,
-    loadFilter,
-    get loadedFilter(): TFilter {
-      return loadedFilter;
-    }
-  };
-
-})();
+export const Filter = {
+  filterElement,
+  loadFilter,
+  get loadedFilter(): Filter {
+    return loadedFilter;
+  }
+};

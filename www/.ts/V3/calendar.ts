@@ -5,11 +5,11 @@ import { Day } from './day';
 import { Network } from './network';
 import { CalendarDrawer } from './calendarDrawer';
 import { Proxy as P } from './proxy'
-import { TRequest, TStore, TMiniStore } from './types'
+import { Store, MinifiedWeek } from './calendarData'
 
-function loadCache(): TStore {
+function loadCache(): Store {
   const cacheStr = Storage.get(P.storage.SAVED_DAYS);
-  let cache: TStore;
+  let cache: Store;
   try {
     cache = JSON.parse(cacheStr);
   } catch (e) {
@@ -19,19 +19,17 @@ function loadCache(): TStore {
   return cache;
 }
 
-function saveCache(cache: TStore) {
+function saveCache(cache: Store) {
   Storage.set(P.storage.SAVED_DAYS, JSON.stringify(cache));
 }
 
-// -------------------------
-let waitForData: boolean; // inappbrowser is loading
-let cache: TStore;
-let storage: TStore;
-let pendingRequest: TRequest;
-let currentDay: string | null;
+let cache: Store;
+let storage: Store;
+let currentDateString: string | null;
+let currentRequest: Promise<void> | null;
 
 function updateNavigationButtons(dateString: string) { // disable or enable nav buttons
-  if (!waitForData && Network.online) {
+  if (!currentRequest && Network.online) {
     P.$BUTTON_PREV.removeClass('disabled');
     P.$BUTTON_NEXT.removeClass('disabled');
     return;
@@ -48,7 +46,7 @@ function updateNavigationButtons(dateString: string) { // disable or enable nav 
   else P.$BUTTON_NEXT.removeClass('disabled');
 }
 
-function registerWeek(mini: TMiniStore) {
+function registerWeek(mini: MinifiedWeek) {
   let dateString = mini.date; // date is a monday
   for (const i in mini.days) {
     storage[dateString] = mini.days[i];
@@ -58,81 +56,45 @@ function registerWeek(mini: TMiniStore) {
   saveCache(cache);
 }
 
-function handleReceivedWeek(data: TMiniStore) {
-  registerWeek(data);
-  handlePendingRequest();
-}
 
-function addPendingRequest(request: TRequest) {
-  cancelPendingRequest();
-  pendingRequest = request;
-  Notification.show('loading');
-  handlePendingRequest();
-}
-
-function cancelPendingRequest() {
-  // if ('reject' in pendingRequest) pendingRequest.reject(new Error(P.err.REQUEST_CANCELLED)); // TODO: deprecated
-  finishPendingRequest();
-}
-
-function finishPendingRequest() {
-  pendingRequest = {};
-  Notification.hide('loading');
-}
-
-async function handlePendingRequest() {
-  if (!pendingRequest || !('dateString' in pendingRequest)) return; // no pending request
-
-  if (pendingRequest.dateString in storage) {
-    CalendarDrawer.draw(pendingRequest.dateString, cache);
-    pendingRequest.resolve();
-    finishPendingRequest();
-  }
-
-  else if (waitForData) {
+async function makeRequest(dateString: string) {
+  if (currentRequest) {
     console.warn('calendar update: already waiting for data');
+    await currentRequest;
+    if(dateString !== currentDateString) throw new Error(P.err.REQUEST_CANCELLED);
   }
 
-  else {
-    console.log("hello");
-    waitForData = true;
-    let week;
+  currentRequest = (async function() {
+    Notification.show('loading');
     await Network.whenOnline();
-    try {
-      week = await Communication.requestWeek(pendingRequest.dateString);
-      console.log("here");
-    } catch (err) {
-      handleError(err);
-      waitForData = false;
-      return;
-    }
-    waitForData = false;
-    await handleReceivedWeek(week);
-  }
+    const week = await Communication.requestWeek(dateString);
+    Notification.hide('loading');
+    registerWeek(week);
+  })();
+
+  await currentRequest;
+  currentRequest = null;
 }
 
-function handleError(err: Error) { // TODO: this is dirty
-  if (err.message === P.err.BUTTON_NOT_FOUND) {
-    console.error(err);
-    Notification.show('dateError', { duration: 3000 });
-    cancelPendingRequest();
-  }
-  else if (err.message === P.err.WEBVIEW_NOT_LOADED) {
-    console.error(err);
-    Notification.show('calendarError', { duration: 3000 });
-  }
-  else if (err.message === P.err.CALENDAR_ERROR) {
-    console.error(err);
-    Notification.show('calendarError', { duration: 3000 });
-  }
-  else if (err.message === P.err.REQUEST_CANCELLED) {
-    console.warn('A request was cancelled');
-  }
-  else {
-    console.error(err);
-    Notification.show('majorError');
-  }
-}
+// function handleError(err: Error) { // TODO: this is dirty
+//   if (err.message === P.err.BUTTON_NOT_FOUND) {
+//     console.error(err);
+//     Notification.show('dateError', { duration: 3000 });
+//     finishPendingRequest();
+//   }
+//   else if (err.message === P.err.WEBVIEW_NOT_LOADED) {
+//     console.error(err);
+//     Notification.show('calendarError', { duration: 3000 });
+//   }
+//   else if (err.message === P.err.CALENDAR_ERROR) {
+//     console.error(err);
+//     Notification.show('calendarError', { duration: 3000 });
+//   }
+//   else {
+//     console.error(err);
+//     Notification.show('majorError');
+//   }
+// }
 
 function drawFromCache(dateString: string) {
   if (dateString in cache) {
@@ -140,45 +102,38 @@ function drawFromCache(dateString: string) {
   }
 }
 
-function draw(dateString: string) {
-  currentDay = dateString;
-  return new Promise<void>(function(resolve, reject) {
-    if (dateString in storage) {
-      cancelPendingRequest();
+async function draw(dateString: string) {
+  currentDateString = dateString;
+  if (dateString in storage) {
+    CalendarDrawer.draw(dateString, storage);
+  }
+  else {
+    if (dateString in cache) {
       CalendarDrawer.draw(dateString, cache);
-      resolve();
     }
     else {
-      addPendingRequest({ dateString, resolve, reject })
-      if (dateString in cache) {
-        CalendarDrawer.draw(dateString, cache);
-      }
-      else {
-        CalendarDrawer.draw(dateString); // actually draws nothing
-        updateNavigationButtons(dateString);
-      }
+      CalendarDrawer.draw(dateString); // actually draws nothing
+      updateNavigationButtons(dateString);
     }
-  })
-    .catch(handleError); // pending request was probably cancelled
+    await makeRequest(dateString);
+    if(currentDateString == dateString) await draw(dateString);
+  }
 }
 
 // -------------------------------------
 
 function init() {
-  waitForData = false;
   cache = loadCache();
   storage = {};
-  pendingRequest = {};
-  currentDay = null;
+  currentDateString = null;
 }
 
 export const Calendar = {
   init: init,
   draw: draw,
   drawFromCache: drawFromCache,
-  getCurrentDay: function() {
-    if(!currentDay) throw new Error('calendar has no current day');
-    return currentDay;
+  get currentDateString() {
+    if(!currentDateString) throw new Error('calendar has no current day');
+    return currentDateString;
   },
-  // update: handlePendingRequest
 }

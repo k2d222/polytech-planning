@@ -1,8 +1,7 @@
 import { Day } from './day';
-import { Filter } from './filter';
 import { Notification } from './notification';
 import { Proxy as P } from './proxy'
-import { TStore, TMini, TExpanded} from './types'
+import { ExpandedCourse, ExpandedDay, Store, expandDay } from './calendarData'
 
 function drawLines() {
   const n_hours = P.END_HOUR - P.START_HOUR;
@@ -22,27 +21,6 @@ function drawLines() {
   }
 }
 
-function expandData(mini: TMini[]) {
-  const expanded: TExpanded[] = [];
-  for (const i in mini) {
-    expanded[i] = {
-      start: { hour: mini[i][0][0], minute: mini[i][0][1] },
-      end: { hour: mini[i][1][0], minute: mini[i][1][1] },
-      title: mini[i][2], background: mini[i][3],
-      unavailable: false, blacklisted: false
-    };
-    if (expanded[i].title === null) {
-      expanded[i].title = 'FERMÉ';
-      expanded[i].unavailable = true;
-    }
-    else {
-      expanded[i].blacklisted = Filter.filterElement(expanded[i]);
-    }
-  }
-  expanded.sort((a, b) => !a.blacklisted && b.blacklisted ? -1 : 0); // not blacklisted comes first (1 <=> b comes first)
-  return expanded;
-}
-
 function createMatrix(): boolean[][] {
   const matrix = []
   const n_hours = P.END_HOUR - P.START_HOUR;
@@ -52,7 +30,7 @@ function createMatrix(): boolean[][] {
   return matrix;
 }
 
-function getEmptySpace(matrix: boolean[][], el: TExpanded) {
+function getEmptySpace(matrix: boolean[][], el: ExpandedCourse) {
   const startRow = (el.start.hour - P.START_HOUR) * 4 + el.start.minute / 15
   const endRow = (el.end.hour - P.START_HOUR) * 4 + el.end.minute / 15
   const width = el.blacklisted ? 1 : 2;
@@ -152,7 +130,7 @@ function drawDate(dateString: string) {
   P.$DATE.html(str);
 }
 
-function drawCoursesPortrait(day: TExpanded[]) {
+function drawCoursesPortrait(day: ExpandedDay) {
   const matrix = createMatrix();
   let maxColumn = 3;
   for (const course of day) {
@@ -179,7 +157,7 @@ function drawCoursesPortrait(day: TExpanded[]) {
   $(P.$.HOUR_LINES).css('grid-column-end', maxColumn + "");
 }
 
-function drawCoursesLandscape(day: TExpanded[], dayNumber: number) {
+function drawCoursesLandscape(day: ExpandedDay, dayNumber: number) {
   const $day = $(P.html.LANDSCAPE_DAY);
   $day.css({
     gridColumn: dayNumber + 1 + "",
@@ -216,26 +194,26 @@ function setDrawMode(mode: DrawMode) {
   drawMode = mode;
 }
 
-function drawLandscape(dateString: string, storage?: TStore) {
+function drawLandscape(dateString: string, storage?: Store) {
   P.$LANDSCAPE_CURRENT_DAY.css('grid-column', Day.day(dateString) + 1 + "");
   if (storage) {
     dateString = Day.monday(dateString);
     for (let i = 1; i < 6; i++) {
-      const day = expandData(storage[dateString]);
+      const day = expandDay(storage[dateString]);
       drawCoursesLandscape(day, i);
       dateString = Day.add(dateString, 1);
     }
   }
 }
 
-function drawPortrait(dateString: string, storage?: TStore) {
+function drawPortrait(dateString: string, storage?: Store) {
   if (storage) {
-    const day = expandData(storage[dateString]);
+    const day = expandDay(storage[dateString]);
     drawCoursesPortrait(day);
   }
 }
 
-function draw(dateString: string, storage?: TStore) {
+function draw(dateString: string, storage?: Store) {
   Notification.hide('calendarError');
   $(P.$.COURSE).remove();
   $(P.$.LANDSCAPE_DAY).remove();

@@ -1,6 +1,7 @@
 import { Day } from './day'
 import { InappBrowser } from './inappbrowser'
 import { Proxy as P } from './proxy'
+import { MinifiedWeek } from './calendarData'
 
 function createStringRequest(functionName: string, args: any[]): string {
   const strArgs = []
@@ -23,7 +24,14 @@ function createStringRequest(functionName: string, args: any[]): string {
   return functionName + '(' + strArgs.join(',') + ')';
 }
 
-function request(functionName: string, args: any[]) {
+interface RequestMap {
+  'parseThisWeek': MinifiedWeek;
+  'isWeekLoaded': boolean;
+  'getCurrentDate': string;
+  'clickButton': boolean;
+};
+
+function request<T extends keyof RequestMap>(functionName: T, args: any[]): Promise<RequestMap[T]> {
   const req = createStringRequest(functionName, args);
   return InappBrowser.eval(req);
 }
@@ -34,12 +42,12 @@ function promiseTimeout(timeout: number) {
   });
 }
 
-function waitUntil<Res>(functionName: string, args: any[], expectedResult: Res, frequency: number = P.com.DEFAULT_UPDATE_INTERVAL) {
+function waitUntil<T extends keyof RequestMap>(functionName: T, args: any[], expectedResult: RequestMap[T], frequency: number = P.com.DEFAULT_UPDATE_INTERVAL) {
   let interval: number;
 
   return new Promise<void>(function(resolve, reject) {
 
-    function then(res: Res) {
+    function then(res: RequestMap[T]) {
       if (res == expectedResult) {
         clearInterval(interval);
         resolve();

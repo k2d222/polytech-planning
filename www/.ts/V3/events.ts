@@ -24,27 +24,27 @@ CalendarDrawer.setDrawMode(landscape ? 'landscape' : 'portrait');
 function onScreenOrientChange() {
   const landscape = (screen.orientation.type.indexOf('portrait') === -1);
   CalendarDrawer.setDrawMode(landscape ? 'landscape' : 'portrait');
-  Calendar.draw(Calendar.getCurrentDay());
+  Calendar.draw(Calendar.currentDateString);
 }
 screen.orientation.addEventListener('change', onScreenOrientChange);
 
 P.$BUTTON_SETTINGS.click(function() {
   Settings.show()
     .then(function() {
-      Calendar.draw(Calendar.getCurrentDay()); // redraw with new filters
+      Calendar.draw(Calendar.currentDateString); // redraw with new filters
     });
 });
 
 P.$BUTTON_PREV.click(function() {
   if (P.$BUTTON_PREV.is('.disabled')) return;
-  const day = Day.add(Calendar.getCurrentDay(), -1);
+  const day = Day.add(Calendar.currentDateString, -1);
   Calendar.draw(day).then(function() {
     P.$CALENDAR_CONTENT.scrollTop(0).scrollLeft(0);
   });
 });
 P.$BUTTON_NEXT.click(function() {
   if (P.$BUTTON_NEXT.is('.disabled')) return;
-  const day = Day.add(Calendar.getCurrentDay(), 1);
+  const day = Day.add(Calendar.currentDateString, 1);
   Calendar.draw(day).then(function() {
     P.$CALENDAR_CONTENT.scrollTop(0).scrollLeft(0);
   });
@@ -52,7 +52,7 @@ P.$BUTTON_NEXT.click(function() {
 
 P.$DATE_CONTAINER.click(function() {
   P.$DATE_PICKER_CONTAINER.removeClass('hidden');
-  let day = Calendar.getCurrentDay();
+  let day = Calendar.currentDateString;
   if (day === null) // solves bug when not yet loaded
     day = Day.today();
   DatePicker.create(day);

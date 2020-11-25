@@ -11,7 +11,6 @@ import { Notification } from './notification'
 
 import './events'
 
-
 async function onDeviceReady() {
   try {
     Calendar.init();
