@@ -92,13 +92,13 @@ function parseThisWeek() {
     }
     else classe.title = classe.title.replace(/<b [^>]+>/g, '<b>');
     classe.background = $data.children('table').css('background-color');
-    classe.start.time = range($data.position().top, 0, gridHeight, 8, 20);
+    classe.start.time = range($data.position().top, 0, gridHeight, 8, 20.5);
     classe.start.time = Math.round(classe.start.time * 10) / 10;
     classe.start.hour = Math.floor(classe.start.time);
     classe.start.minute = Math.round((classe.start.time - classe.start.hour) * 10);
     classe.start.minute = range(classe.start.minute, 0, 10, 0, 60);
     classe.start.minute = nearestValue(classe.start.minute, possibleMinutes);
-    classe.end.time = range($data.position().top + $data.children().eq(0).height(), 0, gridHeight, 8, 20);
+    classe.end.time = range($data.position().top + $data.children().eq(0).height(), 0, gridHeight, 8, 20.5);
     classe.end.time = Math.round(classe.end.time * 10) / 10;
     classe.end.hour = Math.floor(classe.end.time);
     classe.end.minute = Math.round((classe.end.time - classe.end.hour) * 10);

@@ -35,6 +35,9 @@ function expandData(mini) {
       expanded[i].unavailable = true;
     }
     else {
+      expanded[i].title += "<br/>"
+        + expanded[i].start.hour + "h" + expanded[i].start.minute + " - "
+        + expanded[i].end.hour + "h" + expanded[i].end.minute;
       expanded[i].blacklisted = Filter.filterElement(expanded[i]);
     }
   }
