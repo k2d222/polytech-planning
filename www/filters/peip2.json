@@ -7,8 +7,8 @@
       "key":"td",
       "display":"Groupe de TD",
       "variable":["1", "2", "3"],
-      "blacklist":["PEIP2 G\\d"],
-      "whitelist":["PEIP2 G{td}"],
+      "blacklist":["PEIP2 Gr\\d"],
+      "whitelist":["PEIP2 Gr{td}"],
       "subfilters": [
         {
           "key":"tp",
@@ -16,6 +16,20 @@
           "variable":["A", "B"],
           "blacklist":["PEIP2 Gr\\d-[AB]"],
           "whitelist":["PEIP2 Gr{td}-{tp}"]
+        },
+        {
+          "key":"tpchim",
+          "display":"Groupe TP chimie du solide",
+          "variable":["A", "B", "C", "D", "E", "F", "G"],
+          "blacklist":["PEIP2 G\\d-[E-G]"],
+          "whitelist":["PEIP2 G{td}-{tpchim}"]
+        },
+        {
+          "key":"tpinfo",
+          "display":"Groupe de TP info",
+          "variable":["A1", "B12", "C2", "D23", "E3"],
+          "blacklist":["PEIP2 Info[A-E]\\d"],
+          "whitelist":["PEIP2 Info{tpinfo}"]
         }
       ]
     },
@@ -29,9 +43,9 @@
     {
       "key":"opt",
       "display":"Option",
-      "variable":["MTX", "PSO", "INFO", "ESR"],
-      "blacklist":["PEIP2A-option(ESR|INFO|PSO|MTX)"],
-      "whitelist":["PEIP2A-option{opt}"]
+      "variable":["ELEC", "INFO", "MATE", "PHOT"],
+      "blacklist":["PEIP2A-opt_(ELEC|INFO|MATE|PHOT)"],
+      "whitelist":["PEIP2A-opt_{opt}"]
     }
   ]
 }

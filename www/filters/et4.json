@@ -4,6 +4,22 @@
   "whitelist":["ET4"],
   "subfilters": [
     {
+      "key":"td",
+      "display":"Groupe de TD Tronc Commun",
+      "variable":["1", "2", "3", "4"],
+      "blacklist":["ET4 Gr\\d"],
+      "whitelist":["ET4 Gr{td}"],
+      "subfilters":[
+        {
+          "key":"tp",
+          "display":"Groupe de TP Tronc Commun",
+          "variable":["1", "2"],
+          "blacklist":["ET4 Gr\\d\\d"],
+          "whitelist":["ET4 Gr{td}{tp}"]
+        }
+      ]
+    },
+    {
       "key":"ang",
       "display":"Groupe d'anglais",
       "variable":["1", "2", "3", "4", "5", "6", "7"],
@@ -11,22 +27,15 @@
       "whitelist":["ET4 ANG{ang}"]
     },
     {
-      "key":"vlt",
-      "display":"Groupe de projet Voltaire",
-      "variable":["A", "B", "C", "D", "E", "F"],
-      "blacklist":["ET4 Voltaire gr[A-F]"],
-      "whitelist":["ET4 Voltaire{vlt}"]
-    },
-    {
       "key":"spe",
       "display":"Spécialité",
       "variable":{
-        "Electronique, énergie, systèmes":"EES",
-        "Informatique":"INFO",
-        "Photonique systèmes optroniques":"PSO",
-        "Matériaux : mécanique et énergie":"MTX"
+        "Electronique et systèmes robotisés":"ELEC",
+        "Informatique et Ingénierie Mathématique":"INFO",
+        "Matériaux : mécanique et énergie":"MATE",
+        "Photonique systèmes optroniques":"PHOT"
       },
-      "blacklist":["ET4 (EES|INFO|PSO|MTX)"],
+      "blacklist":["ET4 (ELEC|INFO|MATE|PHOT)"],
       "whitelist":["ET4 {spe}"],
       "subfilters":[
         {

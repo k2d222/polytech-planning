@@ -6,7 +6,7 @@
     {
       "key":"td",
       "display":"Groupe de TD",
-      "variable":["1", "2", "3", "4"],
+      "variable":["1", "2", "3", "4", "5"],
       "blacklist":["PEIP1 Gr\\d"],
       "whitelist":["PEIP1 Gr{td}"],
       "subfilters": [
@@ -22,21 +22,24 @@
     {
       "key":"ang",
       "display":"Groupe d'anglais",
-      "variable":["a", "b", "c", "d", "e", "f", "g"],
-      "blacklist":["PEIP1 Ang-[a-g]"],
+      "variable":["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"],
+      "blacklist":["PEIP1 Ang-[a-j]"],
       "whitelist":["PEIP1 Ang-{ang}"]
     },
     {
       "key":"opt",
       "display":"Option",
       "variable":{
-        "IOT et objets connectés":"IOT",
-        "Logic Problem Solving":"Logic Problem Solving",
-        "Initiation aux materiaux":"MTX",
-        "Robots":"Robot",
+        "Du capteur à la décision":"Du capteur à la décision",
+        "IOT":"IOT",
+        "LV2":"LV2",
+        "Logic Problem Solving":"logic",
+        "Matériaux":"Matériaux",
+        "Robots":"Robots",
+        "Smartphonique":"Smartphonique",
         "Web":"Web"
       },
-      "blacklist":["PEIP1 - (IOT|Logic Problem Solving|MTX|Robot|Web)"],
+      "blacklist":["PEIP1 - (Du capteur à la décision|IOT|LV2|Logic Problem Solving|Matériaux|Robots|Smartphonique|Web)"],
       "whitelist":["PEIP1 - {opt}"]
     }
   ]

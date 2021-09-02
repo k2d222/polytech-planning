@@ -51,12 +51,12 @@
       "key":"spe",
       "display":"Spécialité",
       "variable":{
-        "Electronique et systèmes robotisés":"ESR",
-        "Informatique":"INFO",
-        "Photonique systèmes optroniques":"PSO",
-        "Matériaux : mécanique et énergie":"MTX"
+        "Electronique et systèmes robotisés":"ELEC",
+        "Informatique et Ingénierie Mathématique":"INFO",
+        "Matériaux : mécanique et énergie":"MATE",
+        "Photonique systèmes optroniques":"PHOT"
       },
-      "blacklist":["ET3 (ESR|INFO|PSO|MTX)"],
+      "blacklist":["ET3 (ELEC|INFO|MATE|PHOT)"],
       "whitelist":["ET3 {spe}"],
       "subfilters":[
         {

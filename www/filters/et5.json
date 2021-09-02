@@ -6,7 +6,7 @@
     {
       "key":"ang",
       "display":"Groupe d'anglais",
-      "variable":["1", "2", "3", "4", "5", "6", "7"],
+      "variable":["1", "2", "3", "4", "5", "6"],
       "blacklist":["ET5 ANG\\d"],
       "whitelist":["ET5 ANG{ang}"]
     },
@@ -14,12 +14,12 @@
       "key":"spe",
       "display":"Spécialité",
       "variable":{
-        "Electronique, énergie, systèmes":"EES",
-        "Informatique":"INFO",
-        "Photonique systèmes optroniques":"PSO",
-        "Matériaux : mécanique et énergie":"MTX"
+        "Electronique et systèmes robotisés":"ELEC",
+        "Informatique et Ingénierie Mathématique":"INFO",
+        "Matériaux : mécanique et énergie":"MATE",
+        "Photonique systèmes optroniques":"PHOT"
       },
-      "blacklist":["ET5 (EES|INFO|PSO|MTX)"],
+      "blacklist":["ET5 (ELEC|INFO|MATE|PHOT)"],
       "whitelist":["ET5 {spe}"],
       "subfilters":[
         {
