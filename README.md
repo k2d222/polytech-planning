@@ -21,7 +21,7 @@
 ## install
 
  - `cordova platform add android`
- - `cordova build && cordova run` (`build` to compile webpack before deployment)
+ - `npm run build && npm run run` (`build` to compile webpack before deployment)
  - requires plugins network-information, whitelist, inappbrowser
 
 ## open in android-studio

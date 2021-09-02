@@ -11,7 +11,7 @@ import { Notification } from './notification'
 
 import './events'
 
-async function onDeviceReady() {
+async function main() {
   try {
     Calendar.init();
     await Storage.init();
@@ -35,7 +35,7 @@ async function startInappBrowser() {
 }
 
 function init() {
-  document.addEventListener('deviceready', onDeviceReady, false);
+  document.addEventListener('deviceready', main, false);
 }
 
 function restartInappBrowser() {
