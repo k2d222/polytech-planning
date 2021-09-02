@@ -5,6 +5,7 @@ import { Calendar } from './calendar';
 import { CalendarDrawer } from './calendarDrawer';
 import { Day } from './day';
 import { Proxy as P } from './proxy';
+import CalendarError from './error'
 
 function domAddField(filter: Filter, $parent: JQuery<HTMLElement>) { // can be recursive
   for (const filtre of filter.subfilters) { // TODO nommage variables
@@ -113,11 +114,11 @@ function show({ cancelDisabled = false } = {}) {
 }
 
 
-P.$SETTINGS_GRADE.change(function() {
+P.$SETTINGS_GRADE.change(async function() {
   const $sel = P.$SETTINGS_GRADE.children().filter(':checked');
   const val = $sel.attr('value');
   if(val) Storage.set(P.storage.GRADE, val);
-  else throw new Error("missing attribute 'value' on settings element");
+  else throw new CalendarError("missing attribute 'value' on settings element");
 
   Storage.set(P.storage.SAVED_DAYS, ''); // try to delete currently drawn courses
   Calendar.init();
@@ -125,14 +126,11 @@ P.$SETTINGS_GRADE.change(function() {
 
   P.$SETTINGS_SAVE.show(); // was maybe hidden
 
-  Filter.loadFilter(Storage.get(P.storage.GRADE))
-    .then(function() {
-      P.$SETTINGS_CANCEL.hide();
-      loadDOM(Filter.loadedFilter);
-      return App.restartInappBrowser();
-    }).then(function() {
-      Calendar.draw(Day.today());
-    });
+  await Filter.loadFilter(Storage.get(P.storage.GRADE));
+  P.$SETTINGS_CANCEL.hide();
+  loadDOM(Filter.loadedFilter);
+  await App.restartInappBrowser();
+  Calendar.draw(Day.today());
 });
 
 //-----------------------

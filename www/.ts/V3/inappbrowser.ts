@@ -1,5 +1,6 @@
 import { Proxy as P } from './proxy'
 import { Notification } from './notification'
+import CalendarError from './error'
 
 let loaded = false;
 let ref: InAppBrowser;
@@ -39,7 +40,7 @@ async function unpack() {
   } catch (e) {
     console.warn('failed to resolve packets:', packets);
     console.error(e);
-    throw new Error(P.err.CALENDAR_ERROR);
+    throw new CalendarError(P.err.CALENDAR_ERROR);
   }
   console.log('resolved packet :', obj);
   return obj;
@@ -88,7 +89,6 @@ function load(urlKey: string) {
     loaded = false;
     if (keyIsValid(urlKey)) {
       currentUrl = urlKey;
-      console.log(cordova, (window as any).cordova);
       webviewReferences.push(cordova.InAppBrowser.open(P.url[urlKey], '_blank', P.INAPPBROWSER_SETTINGS));
       ref = webviewReferences[webviewReferences.length - 1];
       ref.addEventListener('loadstop', function() {

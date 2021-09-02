@@ -1,6 +1,7 @@
 import { Proxy as P } from './proxy'
 import { Day } from './day'
 import { Calendar } from './calendar'
+import CalendarError from './error'
 
 const months = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
 const week = ['L', 'M', 'M', 'J', 'V'];
@@ -33,7 +34,7 @@ function create(dateString: string) {
       $btn.addClass('selected');
       const dateString = $btn.attr('date');
       if(dateString) Calendar.draw(dateString);
-      else throw new Error("missing attribute 'date' on datepicker button");
+      else throw new CalendarError("missing attribute 'date' on datepicker button");
     })
     P.$DATE_PICKER.append($el);
     date = Day.add(date, 1);

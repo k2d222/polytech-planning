@@ -6,6 +6,7 @@ import { Network } from './network';
 import { CalendarDrawer } from './calendarDrawer';
 import { Proxy as P } from './proxy'
 import { Store, MinifiedWeek } from './calendarData'
+import CalendarError from './error'
 
 function loadCache(): Store {
   const cacheStr = Storage.get(P.storage.SAVED_DAYS);
@@ -61,7 +62,7 @@ async function makeRequest(dateString: string) {
   if (currentRequest) {
     console.warn('calendar update: already waiting for data');
     await currentRequest;
-    if(dateString !== currentDateString) throw new Error(P.err.REQUEST_CANCELLED);
+    if(dateString !== currentDateString) throw new CalendarError(P.err.REQUEST_CANCELLED);
   }
 
   currentRequest = (async function() {
@@ -133,7 +134,7 @@ export const Calendar = {
   draw: draw,
   drawFromCache: drawFromCache,
   get currentDateString() {
-    if(!currentDateString) throw new Error('calendar has no current day');
+    if(!currentDateString) throw new CalendarError('calendar has no current day');
     return currentDateString;
   },
 }

@@ -2,6 +2,7 @@ import { Day } from './day'
 import { InappBrowser } from './inappbrowser'
 import { Proxy as P } from './proxy'
 import { MinifiedWeek } from './calendarData'
+import CalendarError from './error'
 
 function createStringRequest(functionName: string, args: any[]): string {
   const strArgs = []
@@ -76,7 +77,7 @@ async function requestWeek(dateString: string) {
 
   if (currentDate !== dateString) { // must load week before
     const res = await request('clickButton', [dateString])
-    if (!res) throw new Error(P.err.BUTTON_NOT_FOUND);
+    if (!res) throw new CalendarError(P.err.BUTTON_NOT_FOUND);
     else await promiseTimeout(P.com.TIMEOUT_AFTER_BUTTON_PRESS);
     await waitUntil('getCurrentDate', [], dateString);
     await waitUntil('isWeekLoaded', [], true);

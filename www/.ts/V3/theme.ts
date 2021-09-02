@@ -1,5 +1,6 @@
 import { Proxy as P } from './proxy'
 import { Storage } from './storage'
+import CalendarError from './error'
 
 function set(themeName: string) {
   if (themeName) {
@@ -17,7 +18,7 @@ P.$SETTINGS_THEME.change(function() {
     Storage.set(P.storage.THEME, val);
     set(val);
   }
-  else throw new Error("settings element is missing 'value' attribute.");
+  else throw new CalendarError("missing attribute 'value' on settings element");
 })
 
 
