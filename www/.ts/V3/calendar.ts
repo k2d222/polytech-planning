@@ -126,7 +126,7 @@ async function draw(dateString: string) {
 function init() {
   cache = loadCache();
   storage = {};
-  currentDateString = null;
+  currentDateString = currentDateString || null;
 }
 
 export const Calendar = {

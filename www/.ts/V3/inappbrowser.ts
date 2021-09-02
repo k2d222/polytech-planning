@@ -48,7 +48,7 @@ async function unpack() {
 
 function promiseExecute(textScript: string) {
   return new Promise<any>(function(resolve, reject) {
-    if (!loaded) reject(new Error(P.err.WEBVIEW_NOT_LOADED));
+    if (!loaded) reject(new CalendarError(P.err.WEBVIEW_NOT_LOADED));
     else {
       ref.executeScript({ code: textScript }, function(result) {
         resolve(result[0]);
@@ -73,8 +73,7 @@ function fetchScript(url: string) {
 
 async function reload() {
   console.log('reloading InAppBrowser');
-  // ref.close();
-  // ref = null;
+  if(ref) ref.close();
   await load(currentUrl);
   await injectScript();
   console.log('reload done.');

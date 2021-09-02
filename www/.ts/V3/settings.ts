@@ -124,12 +124,15 @@ P.$SETTINGS_GRADE.change(async function() {
   Calendar.init();
   CalendarDrawer.draw(Day.today());
 
-  P.$SETTINGS_SAVE.show(); // was maybe hidden
+  P.$SETTINGS_SAVE.hide();
+  P.$SETTINGS_CANCEL.hide();
+  P.$SETTINGS_FILTER.children().remove();
 
   await Filter.loadFilter(Storage.get(P.storage.GRADE));
-  P.$SETTINGS_CANCEL.hide();
-  loadDOM(Filter.loadedFilter);
   await App.restartInappBrowser();
+
+  P.$SETTINGS_SAVE.show();
+  loadDOM(Filter.loadedFilter);
   Calendar.draw(Day.today());
 });
 
