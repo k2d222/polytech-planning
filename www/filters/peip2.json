@@ -1,7 +1,6 @@
 {
   "display":"PeiP 2",
   "key":"root",
-  "whitelist":["PEIP2"],
   "subfilters": [
     {
       "key":"td",
@@ -14,14 +13,14 @@
           "key":"tp",
           "display":"Groupe de TP",
           "variable":["A", "B"],
-          "blacklist":["PEIP2 Gr\\d-[AB]"],
+          "blacklist":["PEIP2 Gr{td}-[AB]"],
           "whitelist":["PEIP2 Gr{td}-{tp}"]
         },
         {
           "key":"tpchim",
           "display":"Groupe TP chimie du solide",
           "variable":["A", "B", "C", "D", "E", "F", "G"],
-          "blacklist":["PEIP2 G\\d-[E-G]"],
+          "blacklist":["PEIP2 G{td}-[E-G]"],
           "whitelist":["PEIP2 G{td}-{tpchim}"]
         },
         {

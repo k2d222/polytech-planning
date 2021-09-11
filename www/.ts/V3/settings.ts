@@ -65,7 +65,7 @@ function setCurrentSettings() {
     if (Storage.has(key)) {
       const $select = $filter.children('select');
       const val = Storage.get(key);
-      if (val === 'false') {
+      if (val === '0') {
         const $check = $filter.children('input[type=checkbox]');
         if ($check.length === 1) $check.trigger('click');
       }
@@ -120,20 +120,21 @@ P.$SETTINGS_GRADE.change(async function() {
   if(val) Storage.set(P.storage.GRADE, val);
   else throw new CalendarError("missing attribute 'value' on settings element");
 
-  Storage.set(P.storage.SAVED_DAYS, ''); // try to delete currently drawn courses
+  Storage.set(P.storage.SAVED_DAYS, '');
   Calendar.init();
-  CalendarDrawer.draw(Day.today());
+  CalendarDrawer.draw(Day.today()); // delete currently drawn courses
 
   P.$SETTINGS_SAVE.hide();
   P.$SETTINGS_CANCEL.hide();
   P.$SETTINGS_FILTER.children().remove();
 
+  await Calendar.finishRequest(); // don't unload browser while a request is pending !
   await Filter.loadFilter(Storage.get(P.storage.GRADE));
   await App.restartInappBrowser();
 
-  P.$SETTINGS_SAVE.show();
   loadDOM(Filter.loadedFilter);
-  Calendar.draw(Day.today());
+  await Calendar.draw(Day.today());
+  P.$SETTINGS_SAVE.show();
 });
 
 //-----------------------

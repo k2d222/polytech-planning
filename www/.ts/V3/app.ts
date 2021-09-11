@@ -8,6 +8,7 @@ import { InappBrowser } from './inappbrowser'
 import { Day } from './day'
 import { Theme } from './theme'
 import { Notification } from './notification'
+import { Events } from './events'
 
 import './events'
 
@@ -17,9 +18,11 @@ async function main() {
     await Storage.init();
     Theme.set(Storage.get(P.storage.THEME));
     await Filter.loadFilter(Storage.get(P.storage.GRADE));
-    Calendar.drawFromCache(Day.today());
+    let cached = Calendar.drawFromCache(Day.today());
+    if (cached) Events.init();
     await startInappBrowser();
     await Calendar.draw(Day.today());
+    if (!cached) Events.init(); // events are initialized after full load to guarantee Calendar.getCurrent()
   }
   catch (err) {
     console.error('something bad happened !');

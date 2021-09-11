@@ -24,7 +24,7 @@ function create(dateString: string) {
   }
 
   const today = Day.today();
-  const current = Calendar.currentDateString;
+  const current = Calendar.getCurrent();
   while (Day.month(date) === month) {
     const $el = $('<div class="dayNumber" date="' + date + '">' + Day.date(date) + '</div>');
     if (date === current) $el.addClass('selected');

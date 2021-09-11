@@ -1,7 +1,6 @@
 {
   "display":"APP5",
   "key":"root",
-  "whitelist":["APP5"],
   "subfilters": [
     {
       "key":"spe",

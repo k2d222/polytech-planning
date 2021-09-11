@@ -1,13 +1,12 @@
 {
   "display":"APP4",
   "key":"root",
-  "whitelist":["APP4"],
   "subfilters": [
     {
       "key":"td",
       "display":"Groupe de TD Tronc Commun",
       "variable":["A", "B", "C", "D"],
-      "blacklist":["APP4 TC Gr [A-Z]"],
+      "blacklist":["APP4 TC Gr [A-D]"],
       "whitelist":["APP4 TC Gr {td}"]
     },
     {

@@ -184,40 +184,6 @@ svg {
     &.save {
       float: right;
     }
-
-    &.about {
-      text-align: left;
-      color: black;
-      background: transparent;
-      width: 100%;
-      text-decoration: underline;
-    }
-  }
-}
-
-#about {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 10;
-  width: 100vw;
-  height: 100vh;
-  box-sizing: border-box;
-  text-align: left;
-  padding: 1em;
-  background: white;
-  overflow: auto;
-
-  &.hidden {
-    display: none;
-  }
-  button {
-    color: white;
-    outline: none;
-    border: none;
-    background: green;
-    padding: .5em;
-    width: 100%;
   }
 }
 
@@ -351,7 +317,7 @@ svg {
   padding-top:.25em;
   padding-bottom:.25em;
   line-height:1em;
-  // z-index:10;
+  z-index:20;
 
   &.hidden {
     bottom:-2em;

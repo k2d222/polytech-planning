@@ -76,9 +76,6 @@ svg {
 #settings button.save {
   background: green;
 }
-#settings button.about {
-  color: #03DAC5;
-}
 #calendar {
   background: black;
   color: gray;

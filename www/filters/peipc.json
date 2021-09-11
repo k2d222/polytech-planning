@@ -1,7 +1,6 @@
 {
   "display":"PeiP C",
   "key":"root",
-  "whitelist":["PEIPC"],
   "subfilters": [
     {
       "key":"tp",

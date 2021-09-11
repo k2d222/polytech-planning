@@ -41,13 +41,12 @@ function fetchJSON(url: string) {
 }
 
 function filterElement(el: ExpandedCourse, filter = loadedFilter): boolean { // returns bool blacklisted (recursive)
-  let res = false; // whitelisté par défaut
-  if (!(Storage.has(filter.key)) || Storage.get(filter.key) === 'false') return false;
-  if (filter.whitelist) {
-    if (checkList(el, filter.whitelist)) res = false;
-    else if (filter.blacklist) {
-      if (checkList(el, filter.blacklist)) return true; // TODO filtre doit matcher la whitelist ??
-    }
+  if (!(Storage.has(filter.key)) || Storage.get(filter.key) === '0') return false; // filtre désactivé ou inexistant
+
+  if(filter.whitelist && filter.blacklist) {
+    let whitelisted = checkList(el, filter.whitelist);
+    let blacklisted = checkList(el, filter.blacklist);
+    if (!whitelisted && blacklisted) return true;
   }
 
   if (typeof filter.subfilters !== 'undefined') {
@@ -55,7 +54,7 @@ function filterElement(el: ExpandedCourse, filter = loadedFilter): boolean { // 
       if (filterElement(el, subfilter)) return true; // a été blacklisté
     }
   }
-  return res;
+  return false;
 }
 
 async function loadFilter(name: string) {

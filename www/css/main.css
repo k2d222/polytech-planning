@@ -164,37 +164,6 @@ svg {
 #settings button.save {
   float: right;
 }
-#settings button.about {
-  text-align: left;
-  color: black;
-  background: transparent;
-  width: 100%;
-  text-decoration: underline;
-}
-#about {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 10;
-  width: 100vw;
-  height: 100vh;
-  box-sizing: border-box;
-  text-align: left;
-  padding: 1em;
-  background: white;
-  overflow: auto;
-}
-#about.hidden {
-  display: none;
-}
-#about button {
-  color: white;
-  outline: none;
-  border: none;
-  background: green;
-  padding: .5em;
-  width: 100%;
-}
 #calendar {
   position: fixed;
   width: 100vw;
@@ -305,6 +274,7 @@ svg {
   padding-top: .25em;
   padding-bottom: .25em;
   line-height: 1em;
+  z-index: 20;
 }
 .notification.hidden {
   bottom: -2em;

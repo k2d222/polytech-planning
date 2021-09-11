@@ -220,10 +220,6 @@ function draw(dateString: string, storage?: Store) {
   $(P.$CALENDAR).removeClass('portrait landscape').addClass(drawMode);
   if (drawMode === 'landscape') drawLandscape(dateString, storage);
   else drawPortrait(dateString, storage);
-  if (storage !== null) {
-    P.$BUTTON_PREV.removeClass('disabled');
-    P.$BUTTON_NEXT.removeClass('disabled');
-  }
   drawDate(dateString);
 }
 

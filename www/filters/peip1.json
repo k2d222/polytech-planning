@@ -1,7 +1,6 @@
 {
   "display":"PeiP 1",
   "key":"root",
-  "whitelist":["PEIP1"],
   "subfilters": [
     {
       "key":"td",
@@ -14,7 +13,7 @@
           "key":"tp",
           "display":"Groupe de TP",
           "variable":["A", "B"],
-          "blacklist":["PEIP1 Gr\\d[A-Z]"],
+          "blacklist":["PEIP1 Gr{td}[AB]"],
           "whitelist":["PEIP1 Gr{td}{tp}"]
         }
       ]

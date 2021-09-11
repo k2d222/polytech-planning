@@ -1,7 +1,6 @@
 {
   "display":"ET5",
   "key":"root",
-  "whitelist":["ET5"],
   "subfilters": [
     {
       "key":"ang",

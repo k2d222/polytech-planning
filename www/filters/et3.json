@@ -1,7 +1,6 @@
 {
   "display":"ET3",
   "key":"root",
-  "whitelist":["ET3"],
   "subfilters": [
     {
       "key":"td",
@@ -14,7 +13,7 @@
           "key":"tp",
           "display":"Groupe de TP Tronc Commun",
           "variable":["a", "b"],
-          "blacklist":["ET3 Gr\\d[ab]"],
+          "blacklist":["ET3 Gr{td}[ab]"],
           "whitelist":["ET3 Gr{td}{tp}"]
         }
       ]

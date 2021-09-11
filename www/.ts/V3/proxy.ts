@@ -22,8 +22,6 @@ export const Proxy = {
   $BUTTON_PREV: $('.veille'),
   $BUTTON_NEXT: $('.lendemain'),
   $BUTTON_SETTINGS: $('button.settings'),
-  $BUTTON_ABOUT: $('button.about'),
-  $BUTTON_ABOUT_CLOSE: $('#about button'),
 
   $SETTINGS_CONTAINER: $('#settings'),
   $SETTINGS_FILTER: $('#settings .filters'),
