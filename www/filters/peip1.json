@@ -6,15 +6,15 @@
       "key":"td",
       "display":"Groupe de TD",
       "variable":["1", "2", "3", "4", "5"],
-      "blacklist":["PEIP1 Gr\\d"],
-      "whitelist":["PEIP1 Gr{td}"],
+      "blacklist":["PEIP1(-S1|-S2)? Gr\\d"],
+      "whitelist":["PEIP1(-S1|-S2)? Gr{td}"],
       "subfilters": [
         {
           "key":"tp",
           "display":"Groupe de TP",
           "variable":["A", "B"],
-          "blacklist":["PEIP1 Gr{td}[AB]"],
-          "whitelist":["PEIP1 Gr{td}{tp}"]
+          "blacklist":["PEIP1(-S1|-S2)? Gr{td}[AB]"],
+          "whitelist":["PEIP1(-S1|-S2)? Gr{td}{tp}"]
         }
       ]
     },
@@ -22,8 +22,8 @@
       "key":"ang",
       "display":"Groupe d'anglais",
       "variable":["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"],
-      "blacklist":["PEIP1 Ang-[a-j]"],
-      "whitelist":["PEIP1 Ang-{ang}"]
+      "blacklist":["PEIP1(-S1|-S2)? Ang-[a-j]"],
+      "whitelist":["PEIP1(-S1|-S2)? Ang-{ang}"]
     },
     {
       "key":"opt",
@@ -38,8 +38,8 @@
         "Smartphonique":"Smartphonique",
         "Web":"Web"
       },
-      "blacklist":["PEIP1 - (Du capteur à la décision|IOT|LV2|Logic Problem Solving|Matériaux|Robots|Smartphonique|Web)"],
-      "whitelist":["PEIP1 - {opt}"]
+      "blacklist":["PEIP1(-S1|-S2)? - (Du capteur à la décision|IOT|LV2|Logic Problem Solving|Matériaux|Robots|Smartphonique|Web)"],
+      "whitelist":["PEIP1(-S1|-S2)? - {opt}"]
     }
   ]
 }
