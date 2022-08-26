@@ -9,6 +9,6 @@
     "strictPropertyInitialization": true,
     "types": ["jquery", "cordova", "cordova-plugin-inappbrowser", "cordova-plugin-network-information"],
     "downlevelIteration": true,
-    "sourceMap": true,
+    "sourceMap": true
   }
 }
