@@ -5,7 +5,7 @@
     {
       "key":"td",
       "display":"Groupe de TD",
-      "variable":["1", "2", "3"],
+      "variable":["1", "2", "3", "4"],
       "blacklist":["PEIP2 Gr\\d"],
       "whitelist":["PEIP2 Gr{td}"],
       "subfilters": [
@@ -19,15 +19,15 @@
         {
           "key":"tpchim",
           "display":"Groupe TP chimie du solide",
-          "variable":["A", "B", "C", "D", "E", "F", "G"],
+          "variable":["E", "F", "G"],
           "blacklist":["PEIP2 G{td}-[E-G]"],
           "whitelist":["PEIP2 G{td}-{tpchim}"]
         },
         {
           "key":"tpinfo",
           "display":"Groupe de TP info",
-          "variable":["A1", "B12", "C2", "D23", "E3"],
-          "blacklist":["PEIP2 Info[A-E]\\d"],
+          "variable":["A1", "B12", "C2", "D23", "E3", "F34", "G4"],
+          "blacklist":["PEIP2 Info[A-G]\\d\\d?"],
           "whitelist":["PEIP2 Info{tpinfo}"]
         }
       ]
@@ -35,8 +35,8 @@
     {
       "key":"ang",
       "display":"Groupe d'anglais",
-      "variable":["A", "B", "C", "D", "E", "F"],
-      "blacklist":["PEIP2 anglais-[A-F]"],
+      "variable":["A", "B", "C", "D", "E", "F", "G", "H"],
+      "blacklist":["PEIP2 anglais-[A-H]"],
       "whitelist":["PEIP2 anglais-{ang}"]
     },
     {
