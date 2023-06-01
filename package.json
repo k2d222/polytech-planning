@@ -9,8 +9,8 @@
         "run": "cordova run",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
-    "author": "Mathis Brossier",
-    "license": "Apache-2.0",
+    "author": "Mathis Brossier <mathis.brossier@universite-paris-saclay.fr>",
+    "license": "GPL-3.0-only",
     "dependencies": {
         "@types/cordova": "0.0.34",
         "@types/jquery": "^3.5.14",
